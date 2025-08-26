@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.piramittek.com/tr</loc>
+    <xhtml:link rel="alternate" hreflang="en"
+      href="https://www.piramittek.com/en" />
+    <xhtml:link rel="alternate" hreflang="de"
+      href="https://www.piramittek.com/de" />
+    <xhtml:link rel="alternate" hreflang="tr"
+      href="https://www.piramittek.com/tr" />
+    <lastmod>2025-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.piramittek.com/tr/hizmetlerimiz</loc>
+    <xhtml:link rel="alternate" hreflang="en"
+      href="https://www.piramittek.com/en/hizmetlerimiz" />
+    <xhtml:link rel="alternate" hreflang="de"
+      href="https://www.piramittek.com/de/hizmetlerimiz" />
+    <xhtml:link rel="alternate" hreflang="tr"
+      href="https://www.piramittek.com/tr/hizmetlerimiz" />
+    <lastmod>2025-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.piramittek.com/tr/gelistirme-sureci</loc>
+    <xhtml:link rel="alternate" hreflang="en"
+      href="https://www.piramittek.com/en/gelistirme-sureci" />
+    <xhtml:link rel="alternate" hreflang="de"
+      href="https://www.piramittek.com/de/gelistirme-sureci" />
+    <xhtml:link rel="alternate" hreflang="tr"
+      href="https://www.piramittek.com/tr/gelistirme-sureci" />
+    <lastmod>2025-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.piramittek.com/tr/projeler</loc>
+    <xhtml:link rel="alternate" hreflang="en"
+      href="https://www.piramittek.com/en/projeler" />
+    <xhtml:link rel="alternate" hreflang="de"
+      href="https://www.piramittek.com/de/projeler" />
+    <xhtml:link rel="alternate" hreflang="tr"
+      href="https://www.piramittek.com/tr/projeler" />
+    <lastmod>2025-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.piramittek.com/tr/iletisim</loc>
+    <xhtml:link rel="alternate" hreflang="en"
+      href="https://www.piramittek.com/en/iletisim" />
+    <xhtml:link rel="alternate" hreflang="de"
+      href="https://www.piramittek.com/de/iletisim" />
+    <xhtml:link rel="alternate" hreflang="tr"
+      href="https://www.piramittek.com/tr/iletisim" />
+    <lastmod>2025-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
