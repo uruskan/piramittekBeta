@@ -500,6 +500,63 @@
   .splash-video { display: none; }
 }
 
+/* Mobile navigation enhancements */
+@media (max-width: 768px) {
+  /* Ensure mobile navigation is always visible */
+  nav {
+    background: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Ensure mobile menu doesn't overlap with system UI */
+  .mobile-menu-safe {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Improve touch targets for mobile */
+  .touch-target-mobile {
+    min-height: 48px;
+    min-width: 48px;
+    touch-action: manipulation;
+  }
+
+  /* Prevent horizontal scroll on mobile navigation */
+  .mobile-nav-container {
+    overflow-x: hidden;
+  }
+
+  /* Better backdrop blur for mobile */
+  .mobile-backdrop {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/* Mobile-first responsive navigation */
+@media (max-width: 1024px) {
+  /* Improve mobile menu positioning */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+}
+
 /* Advanced 3D transforms and perspective effects */
 .perspective-1000 {
   perspective: 1000px;
@@ -662,4 +719,57 @@
   50% {
     background-position: 100% 100%, 0% 0%, 25% 75%;
   }
+}
+
+/* Enhanced mobile navigation animations */
+@keyframes gradient-x {
+  0%,
+  100% {
+    transform: translateX(-100%);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-in-from-top-2 {
+  0% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-top-2 {
+  animation: slide-in-from-top-2 0.3s ease-out;
+}
+
+.duration-300 {
+  animation-duration: 300ms;
 }

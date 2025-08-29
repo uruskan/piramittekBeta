@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronDown, ChevronRight, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function MobileServiceCard({ service, language, t, onGetQuote }) {
   const [expanded, setExpanded] = useState(false)
@@ -85,9 +86,12 @@ export default function MobileServiceCard({ service, language, t, onGetQuote }) 
             <Button
               size="sm"
               variant="outline"
+              asChild
               className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 bg-transparent px-3"
             >
-              <ExternalLink size={14} />
+              <Link href="/projeler">
+                <ExternalLink size={14} />
+              </Link>
             </Button>
           </div>
         </div>

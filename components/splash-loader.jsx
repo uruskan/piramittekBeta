@@ -2,20 +2,16 @@
 
 import { useEffect, useState } from 'react'
 
-export default function SplashLoader({ onComplete }) {
+export default function SplashLoader({ onComplete, videoLoaded = false }) {
   const [progress, setProgress] = useState(0)
   const [stage, setStage] = useState('loading') // loading, ready
 
   useEffect(() => {
-    // Simulate video loading progress
+    // Simulate loading progress
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval)
-          setStage('ready')
-          setTimeout(() => {
-            onComplete()
-          }, 500)
           return 100
         }
         return prev + Math.random() * 15 + 5 // Irregular progress
@@ -23,7 +19,17 @@ export default function SplashLoader({ onComplete }) {
     }, 100)
 
     return () => clearInterval(interval)
-  }, [onComplete])
+  }, [])
+
+  useEffect(() => {
+    // Only complete when both progress is done AND video is loaded
+    if (progress >= 100 && videoLoaded) {
+      setStage('ready')
+      setTimeout(() => {
+        onComplete()
+      }, 300) // Shorter delay since video is already ready
+    }
+  }, [progress, videoLoaded, onComplete])
 
   return (
     <div className="fixed inset-0 bg-black z-[70] flex items-center justify-center">
@@ -46,7 +52,7 @@ export default function SplashLoader({ onComplete }) {
         <div>
           <h2 className="text-xl font-bold text-white mb-2">PiramitTek</h2>
           <p className="text-sm text-white/60">
-            {stage === 'loading' ? 'Yükleniyor...' : 'Hazır!'}
+            {stage === 'ready' ? 'Hazır!' : progress >= 100 && !videoLoaded ? 'Video yükleniyor...' : 'Yükleniyor...'}
           </p>
         </div>
 

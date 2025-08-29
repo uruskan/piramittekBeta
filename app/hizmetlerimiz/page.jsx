@@ -399,7 +399,7 @@ export default function ServicesPage() {
                 service={service}
                 language={language}
                 t={t}
-                onGetQuote={() => {/* Add quote logic */}}
+                onGetQuote={() => window.location.href = '/iletisim'}
               />
             ))}
           </div>
@@ -479,16 +479,20 @@ export default function ServicesPage() {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Button
                         size="sm"
+                        asChild
                         className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold flex-1 min-h-[44px] touch-manipulation"
                       >
-                        {t.getQuote}
+                        <Link href="/iletisim">{t.getQuote}</Link>
                       </Button>
                       <Button
                         size="sm"
                         variant="outline"
+                        asChild
                         className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 bg-transparent min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                       >
-                        <ExternalLink size={16} />
+                        <Link href="/projeler">
+                          <ExternalLink size={16} />
+                        </Link>
                       </Button>
                     </div>
                   </div>
@@ -532,24 +536,30 @@ export default function ServicesPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-black px-12 py-6 font-bold transform hover:scale-105 transition-all duration-300"
+                asChild
+                className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-black px-12 py-6 font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] touch-manipulation"
               >
-                {language === "tr"
-                  ? "Ücretsiz Konsültasyon"
-                  : language === "en"
-                    ? "Free Consultation"
-                    : "Kostenlose Beratung"}
+                <Link href="/iletisim">
+                  {language === "tr"
+                    ? "Ücretsiz Konsültasyon"
+                    : language === "en"
+                      ? "Free Consultation"
+                      : "Kostenlose Beratung"}
+                </Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-12 py-6 font-bold transform hover:scale-105 transition-all duration-300 bg-transparent"
+                asChild
+                className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-12 py-6 font-bold transform hover:scale-105 transition-all duration-300 bg-transparent min-h-[44px] touch-manipulation"
               >
-                {language === "tr"
-                  ? "Portföyümüzü İnceleyin"
-                  : language === "en"
-                    ? "View Our Portfolio"
-                    : "Unser Portfolio ansehen"}
+                <Link href="/projeler">
+                  {language === "tr"
+                    ? "Portföyümüzü İnceleyin"
+                    : language === "en"
+                      ? "View Our Portfolio"
+                      : "Unser Portfolio ansehen"}
+                </Link>
               </Button>
             </div>
           </div>

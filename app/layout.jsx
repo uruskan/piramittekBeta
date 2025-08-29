@@ -1,6 +1,6 @@
 import { GeistSans } from "geist/font/sans"
 import { LanguageProvider } from "@/components/language-context"
-import SiteNav from "@/components/site-nav"
+import SiteNavNew from "@/components/site-nav-new"
 import DynamicHtmlLang from "@/components/dynamic-html-lang"
 import "./globals.css"
 
@@ -13,7 +13,7 @@ function LayoutWithLanguage({ children }) {
   return (
     <LanguageProvider>
       <DynamicHtmlLang />
-      <SiteNav />
+      <SiteNavNew />
       {children}
     </LanguageProvider>
   )

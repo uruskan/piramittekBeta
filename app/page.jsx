@@ -22,7 +22,9 @@ export default function HomePage() {
   const { language, setLanguage } = useLanguage()
   const [hasEntered, setHasEntered] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [videoLoaded, setVideoLoaded] = useState(false)
   const canvasRef = useRef(null)
+  const videoRef = useRef(null)
   const particlesRef = useRef([])
   const mouseRef = useRef({ x: 0, y: 0, active: false })
   const pyramidParallax = useParallax({ speed: -0.05 })
@@ -31,7 +33,27 @@ export default function HomePage() {
   const [glitchOn, setGlitchOn] = useState(false)
 
   useEffect(() => {
-    // No gating; always start on splash. Keep effect for future extensibility.
+    // Check if user has already entered before
+    const hasEnteredBefore = sessionStorage.getItem('hasEnteredSite')
+    if (hasEnteredBefore === 'true') {
+      setHasEntered(true)
+    }
+    
+    // Preload video
+    const preloadVideo = () => {
+      const video = document.createElement('video')
+      video.src = '/video.mp4?v=20250826'
+      video.preload = 'auto'
+      video.oncanplaythrough = () => {
+        setVideoLoaded(true)
+      }
+      video.onerror = () => {
+        // If video fails to load, proceed anyway
+        setVideoLoaded(true)
+      }
+    }
+    
+    preloadVideo()
   }, [])
 
   useEffect(() => {
@@ -402,7 +424,7 @@ export default function HomePage() {
   }, [taglineIndex])
 
   if (isLoading) {
-    return <SplashLoader onComplete={() => setIsLoading(false)} />
+    return <SplashLoader onComplete={() => setIsLoading(false)} videoLoaded={videoLoaded} />
   }
 
   if (!hasEntered) {
@@ -450,7 +472,10 @@ export default function HomePage() {
             <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 px-4">{t.subtitle}</p>
             <Button
               size="lg"
-              onClick={() => setHasEntered(true)}
+              onClick={() => {
+                setHasEntered(true)
+                sessionStorage.setItem('hasEnteredSite', 'true')
+              }}
               className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] w-auto touch-manipulation"
             >
               {t.explore}
@@ -465,7 +490,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <StarfieldOverlay />
 
-      <section className="min-h-[100vh] sm:min-h-[88vh] flex items-center justify-center relative overflow-hidden pt-16 sm:pt-0">
+      <section className="min-h-[100vh] sm:min-h-[88vh] flex items-center justify-center relative overflow-hidden pt-20 sm:pt-16">
         <HeroTilt>
           <div className="absolute inset-0 z-0">
             <NeuralNetwork />
