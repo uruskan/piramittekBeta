@@ -10,11 +10,25 @@ const LanguageContext = createContext({
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState("tr")
 
-  // hydrate from localStorage once on client
+  // hydrate from localStorage or detect browser language
   useEffect(() => {
     try {
       const saved = localStorage.getItem("piramittek:lang")
-      if (saved) setLanguage(saved)
+      if (saved) {
+        setLanguage(saved)
+      } else {
+        // Detect browser/system language
+        const browserLang = navigator.language || navigator.userLanguage
+        if (browserLang) {
+          if (browserLang.startsWith('tr')) {
+            setLanguage('tr')
+          } else if (browserLang.startsWith('de')) {
+            setLanguage('de')
+          } else {
+            setLanguage('en') // Default to English for all other languages
+          }
+        }
+      }
     } catch {}
   }, [])
 

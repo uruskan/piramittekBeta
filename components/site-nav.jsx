@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useLanguage } from "@/components/language-context"
 
@@ -9,6 +9,8 @@ export default function SiteNav() {
   const pathname = usePathname()
   const { language, setLanguage } = useLanguage()
   const barRef = useRef(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [hoveredItem, setHoveredItem] = useState(null)
 
   const t = {
     tr: { home: "Ana Sayfa", services: "Hizmetlerimiz", process: "Geliştirme Süreci", projects: "Projeler", contact: "İletişim" },
@@ -31,77 +33,118 @@ export default function SiteNav() {
       const x = e.clientX - rect.left
       barRef.current.style.setProperty("--mx", `${x}px`)
     }
+    
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    
     window.addEventListener("mousemove", onMove)
-    return () => window.removeEventListener("mousemove", onMove)
+    window.addEventListener("scroll", onScroll)
+    return () => {
+      window.removeEventListener("mousemove", onMove)
+      window.removeEventListener("scroll", onScroll)
+    }
   }, [])
 
   const onNavLeave = () => {}
 
   return (
-    <nav className="fixed top-0 w-full z-50">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'}`}>
       <div className="relative">
         {/* Aurora backdrop */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="aurora h-full w-full" />
         </div>
         {/* Glass bar */}
-        <div ref={barRef} onMouseLeave={onNavLeave} className="relative bg-black/70 backdrop-blur-2xl border-b border-cyan-400/20 glass-grain">
+        <div 
+          ref={barRef} 
+          onMouseLeave={onNavLeave} 
+          className={`relative transition-all duration-500 border-b glass-grain ${scrolled ? 'bg-black/85 border-cyan-400/30' : 'bg-black/70 border-cyan-400/20'}`}
+        >
           <div className="container mx-auto px-6">
             <div className="h-16 flex items-center justify-between">
               {/* Brand mark */}
               <Link href="/" className="flex items-center gap-3 group">
                 <span className="relative w-7 h-7 grid place-items-center">
-                  <span className="absolute inset-0 rotate-45 border-2 border-cyan-400 group-hover:animate-spin-slow" />
-                  <span className="absolute inset-[3px] rotate-45 border border-purple-400" />
-                  <span className="relative text-[10px] font-black text-cyan-400">PT</span>
+                  <span className="absolute inset-0 rotate-45 border-2 border-cyan-400 group-hover:animate-spin-slow transition-transform duration-500" />
+                  <span className="absolute inset-[3px] rotate-45 border border-purple-400 group-hover:border-cyan-400 transition-colors duration-500" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-purple-400/20 to-cyan-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                  <span className="relative text-[10px] font-black text-cyan-400 group-hover:text-white transition-colors duration-500">PT</span>
                 </span>
-                <span className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">PiramitTek</span>
+                <span className="text-lg font-bold text-white group-hover:text-cyan-400 transition-all duration-300 group-hover:tracking-wider">PiramitTek</span>
               </Link>
 
               {/* Centered nav */}
               <div className="hidden md:flex items-center gap-1 relative">
                 {items.map((item) => {
                   const active = pathname === item.href
+                  const isHovered = hoveredItem === item.key
                   return (
                     <Link
                       key={item.key}
                       href={item.href}
-                      className={`relative px-4 py-2 text-sm font-bold transition-colors group ${
+                      onMouseEnter={() => setHoveredItem(item.key)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                      className={`relative px-4 py-2 text-sm font-bold transition-all duration-300 group ${
                         active ? "text-cyan-400" : "text-white/70 hover:text-white"
                       }`}
                     >
-                      <span className="relative z-10">{t[item.key]}</span>
+                      {/* Hover glow effect */}
+                      <span className={`absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+                      
+                      {/* Text with scale effect */}
+                      <span className={`relative z-10 inline-block transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
+                        {t[item.key]}
+                      </span>
+                      
+                      {/* Active indicator with animation */}
                       {active && (
-                        <span className="absolute left-4 right-4 -bottom-[6px] h-[2px] bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400" />
+                        <span className="absolute left-4 right-4 -bottom-[6px] h-[2px] bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 animate-pulse" />
+                      )}
+                      
+                      {/* Hover underline */}
+                      {!active && (
+                        <span className={`absolute left-4 right-4 -bottom-[6px] h-[2px] bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 ${isHovered ? 'scale-x-100 opacity-60' : 'scale-x-0 opacity-0'} origin-center`} />
                       )}
                     </Link>
                   )
                 })}
               </div>
 
-              {/* Lang */}
+              {/* Lang with enhanced animations */}
               <div className="flex items-center gap-2">
                 {["tr", "en", "de"].map((lang) => (
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`text-xs font-bold transition-all px-2 py-1 border backdrop-blur-sm ${
+                    className={`relative text-xs font-bold transition-all duration-300 px-3 py-1.5 border overflow-hidden group ${
                       language === lang
-                        ? "text-cyan-400 border-cyan-400 bg-cyan-400/10"
-                        : "text-white/60 hover:text-white border-white/20 hover:border-white/40"
+                        ? "text-cyan-400 border-cyan-400 bg-cyan-400/10 scale-105"
+                        : "text-white/60 hover:text-white border-white/20 hover:border-white/40 hover:scale-105"
                     }`}
                   >
-                    {lang.toUpperCase()}
+                    {/* Background sweep animation */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+                    
+                    {/* Text */}
+                    <span className="relative z-10">{lang.toUpperCase()}</span>
+                    
+                    {/* Active pulse effect */}
+                    {language === lang && (
+                      <span className="absolute inset-0 bg-cyan-400/20 animate-pulse" />
+                    )}
                   </button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Scanning line */}
+          {/* Enhanced scanning line with multiple layers */}
           <div className="relative h-[2px] overflow-hidden">
-            <div className="absolute inset-0 bg-white/5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
             <div className="absolute inset-0 nav-shimmer" />
+            {/* Additional pulsing line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/30 to-cyan-400/0 animate-pulse" />
           </div>
         </div>
       </div>

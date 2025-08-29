@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Code, Brain, Wifi, Shield, ChevronDown, Mail, ExternalLink, Volume2, VolumeX } from "lucide-react"
+import { Code, Brain, Wifi, Shield, ChevronDown, Mail, ExternalLink } from "lucide-react"
 import dynamic from "next/dynamic"
 const HeroAstrolabe = dynamic(() => import("@/components/hero/HeroAstrolabe").then(m => m.default).catch(() => () => null), { ssr: false })
 import { Pyramid3D } from "@/components/pyramid-3d"
@@ -19,7 +19,6 @@ import { SectionAnimator } from "@/components/SectionAnimator"
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
   const [hasEntered, setHasEntered] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
   const mouseRef = useRef({ x: 0, y: 0, active: false })
@@ -229,6 +228,32 @@ export default function HomePage() {
       connect: "BAĞLANTI KUR",
       aboutTitle: "Yenilikçi Yazılım Çözümleri",
       aboutDesc: "İhtiyaçlarınızı gerçekten karşılayan çözümler sunmak için müşteri odaklı bir yaklaşım",
+      capabilities: "Yeteneklerimiz",
+      skills: [
+        "Web Uygulamaları",
+        "Mobil (iOS/Android)",
+        "AI / ML",
+        "IoT",
+        "Siber Güvenlik",
+        "Bulut (AWS/Azure/GCP)",
+        "DevOps & CI/CD",
+        "Mikroservis Mimarisi",
+        "UI/UX",
+        "Veri Mühendisliği",
+      ],
+      serviceBullets: [
+        "Mimari & ölçeklenebilirlik",
+        "Performans ve güvenlik",
+        "Uçtan uca teslimat"
+      ],
+      processItems: [
+        { title: 'Keşif & Strateji', desc: 'Nereye bakacağımızı belirleyen kuzey yıldızı.', bullets: ['Kuzey yıldızı', 'Sinyaller ve sınırlar', 'Başarı izi'] },
+        { title: 'Deneyim Tasarımı', desc: 'Akışlar ve mikro-etkileşimlerle anlamlı yolculuk.', bullets: ['Akış haritası', 'Prototip ritmi', 'Sistem dili'] },
+        { title: 'Mimari', desc: 'Dayanıklı çekirdek, ölçülebilir sınırlar.', bullets: ['ADR kararları', 'Domain / veri izleği', 'Güvenlik etiği'] },
+        { title: 'Geliştirme', desc: 'Okunur kod, görünür davranış, kontrollü yayın.', bullets: ['Gözlemlenebilirlik', 'Feature flags', 'Kod düzeni'] },
+        { title: 'Doğrulama', desc: 'Kırılmayı önceden fark eden test ağı.', bullets: ['E2E ve yük', 'OWASP notları', 'SAST/DAST'] },
+        { title: 'Yayın & İşletim', desc: 'Sakin altyapı, ölçülen hizmet kalitesi.', bullets: ['CI/CD & IaC', 'Kanarya', 'SLO/SLI'] },
+      ],
       processSteps: [
         "Keşif & Planlama - İhtiyaçlarınızı anlama",
         "Tasarım & Mimari - Plan oluşturma",
@@ -252,6 +277,32 @@ export default function HomePage() {
       connect: "ESTABLISH CONNECTION",
       aboutTitle: "Innovative Software Solutions",
       aboutDesc: "A client-centric approach to deliver solutions that truly meet your needs",
+      capabilities: "Our Capabilities",
+      skills: [
+        "Web Applications",
+        "Mobile (iOS/Android)",
+        "AI / ML",
+        "IoT",
+        "Cybersecurity",
+        "Cloud (AWS/Azure/GCP)",
+        "DevOps & CI/CD",
+        "Microservices Architecture",
+        "UI/UX",
+        "Data Engineering",
+      ],
+      serviceBullets: [
+        "Architecture & scalability",
+        "Performance and security",
+        "End-to-end delivery"
+      ],
+      processItems: [
+        { title: 'Discovery & Strategy', desc: 'North star that determines where we look.', bullets: ['North star', 'Signals and boundaries', 'Success trail'] },
+        { title: 'Experience Design', desc: 'Meaningful journey with flows and micro-interactions.', bullets: ['Flow map', 'Prototype rhythm', 'System language'] },
+        { title: 'Architecture', desc: 'Resilient core, scalable boundaries.', bullets: ['ADR decisions', 'Domain / data trace', 'Security ethics'] },
+        { title: 'Development', desc: 'Readable code, visible behavior, controlled release.', bullets: ['Observability', 'Feature flags', 'Code organization'] },
+        { title: 'Validation', desc: 'Test network that detects breaks in advance.', bullets: ['E2E and load', 'OWASP notes', 'SAST/DAST'] },
+        { title: 'Deployment & Operations', desc: 'Calm infrastructure, measured service quality.', bullets: ['CI/CD & IaC', 'Canary', 'SLO/SLI'] },
+      ],
       processSteps: [
         "Discovery & Planning - Understanding your needs",
         "Design & Architecture - Creating the blueprint",
@@ -276,6 +327,32 @@ export default function HomePage() {
       aboutTitle: "Innovative Software-Lösungen",
       aboutDesc:
         "Ein kundenorientierter Ansatz zur Bereitstellung von Lösungen, die Ihre Bedürfnisse wirklich erfüllen",
+      capabilities: "Unsere Fähigkeiten",
+      skills: [
+        "Webanwendungen",
+        "Mobil (iOS/Android)",
+        "KI / ML",
+        "IoT",
+        "Cybersicherheit",
+        "Cloud (AWS/Azure/GCP)",
+        "DevOps & CI/CD",
+        "Microservices-Architektur",
+        "UI/UX",
+        "Datentechnik",
+      ],
+      serviceBullets: [
+        "Architektur & Skalierbarkeit",
+        "Leistung und Sicherheit",
+        "End-to-End-Lieferung"
+      ],
+      processItems: [
+        { title: 'Entdeckung & Strategie', desc: 'Nordstern, der bestimmt, wohin wir schauen.', bullets: ['Nordstern', 'Signale und Grenzen', 'Erfolgsspur'] },
+        { title: 'Erfahrungsdesign', desc: 'Sinnvolle Reise mit Abläufen und Mikrointeraktionen.', bullets: ['Flusskarte', 'Prototyp-Rhythmus', 'Systemsprache'] },
+        { title: 'Architektur', desc: 'Widerstandsfähiger Kern, skalierbare Grenzen.', bullets: ['ADR-Entscheidungen', 'Domäne / Datenspur', 'Sicherheitsethik'] },
+        { title: 'Entwicklung', desc: 'Lesbarer Code, sichtbares Verhalten, kontrollierte Freigabe.', bullets: ['Beobachtbarkeit', 'Feature-Flags', 'Code-Organisation'] },
+        { title: 'Validierung', desc: 'Testnetzwerk, das Brüche im Voraus erkennt.', bullets: ['E2E und Last', 'OWASP-Notizen', 'SAST/DAST'] },
+        { title: 'Bereitstellung & Betrieb', desc: 'Ruhige Infrastruktur, gemessene Servicequalität.', bullets: ['CI/CD & IaC', 'Kanarienvogel', 'SLO/SLI'] },
+      ],
       processSteps: [
         "Entdeckung & Planung - Ihre Bedürfnisse verstehen",
         "Design & Architektur - Den Bauplan erstellen",
@@ -328,7 +405,7 @@ export default function HomePage() {
         <video
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay
-          muted={isMuted}
+          muted
           loop
           playsInline
           poster="/placeholder.jpg"
@@ -338,22 +415,13 @@ export default function HomePage() {
         </video>
         <div className="absolute inset-0 bg-black/40 z-20" />
 
-        <div className="absolute top-6 left-6 z-30">
-          <button
-            onClick={() => setIsMuted(!isMuted)}
-            className="text-white/80 hover:text-cyan-400 transition-colors p-2 border border-white/30 hover:border-cyan-400 backdrop-blur-sm"
-            aria-label={isMuted ? "Sesi aç" : "Sesi kapat"}
-          >
-            {isMuted ? <VolumeX size={22} /> : <Volume2 size={22} />}
-          </button>
-        </div>
 
-        <div className="absolute top-6 right-6 z-30 flex gap-2">
+        <div className="absolute top-6 right-6 z-50 flex gap-2">
           {["tr", "en", "de"].map((lang) => (
             <button
               key={lang}
               onClick={() => setLanguage(lang)}
-              className={`text-xs font-bold transition-all px-2 py-1 border backdrop-blur-sm ${
+              className={`text-xs font-bold transition-all px-3 py-2 border backdrop-blur-sm cursor-pointer select-none ${
                 language === lang
                   ? "text-cyan-400 border-cyan-400 bg-cyan-400/10"
                   : "text-white/70 hover:text-white border-white/30 hover:border-white/50"
@@ -398,7 +466,7 @@ export default function HomePage() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black z-5" />
         <HeroTilt>
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 opacity-90 pointer-events-none z-0" style={pyramidParallax}>
+          <div className="absolute top-20 left-1/2 -translate-x-1/2 opacity-90 pointer-events-none z-0" style={pyramidParallax}>
             <div className="absolute -inset-16 -z-10" style={{
               background: "radial-gradient(closest-side, rgba(139,92,246,0.18), rgba(6,182,212,0.08) 45%, transparent 70%)",
               filter: "blur(6px)",
@@ -451,21 +519,10 @@ export default function HomePage() {
         <section className="py-16 relative">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            Yeteneklerimiz
+            {t.capabilities}
           </h2>
           <div className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
-            {[
-              "Web Uygulamaları",
-              "Mobil (iOS/Android)",
-              "AI / ML",
-              "IoT",
-              "Siber Güvenlik",
-              "Bulut (AWS/Azure/GCP)",
-              "DevOps & CI/CD",
-              "Mikroservis Mimarisi",
-              "UI/UX",
-              "Veri Mühendisliği",
-            ].map((tag) => (
+            {t.skills.map((tag) => (
               <Magnetic key={tag}>
                 <span
                   className="px-4 py-2 text-sm border border-white/20 text-white/80 bg-white/5 hover:border-cyan-400/50 hover:text-white transition-all duration-300 relative overflow-hidden"
@@ -505,9 +562,12 @@ export default function HomePage() {
                     </h3>
                     <p className="text-white/70 text-sm leading-relaxed mb-4">{service.description}</p>
                     <ul className="text-white/70 text-sm space-y-1 mb-4">
-                      <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-cyan-400 inline-block rounded-full" /> Mimari & ölçeklenebilirlik</li>
-                      <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-cyan-400 inline-block rounded-full" /> Performans ve güvenlik</li>
-                      <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-cyan-400 inline-block rounded-full" /> Uçtan uca teslimat</li>
+                      {t.serviceBullets.map((bullet, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 bg-cyan-400 inline-block rounded-full" /> 
+                          {bullet}
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
@@ -535,14 +595,7 @@ export default function HomePage() {
             <div className="relative">
               <DevFlow
                 height={560}
-                items={[
-                  { title: 'Keşif & Strateji', desc: 'Nereye bakacağımızı belirleyen kuzey yıldızı.', bullets: ['Kuzey yıldızı', 'Sinyaller ve sınırlar', 'Başarı izi'] },
-                  { title: 'Deneyim Tasarımı', desc: 'Akışlar ve mikro-etkileşimlerle anlamlı yolculuk.', bullets: ['Akış haritası', 'Prototip ritmi', 'Sistem dili'] },
-                  { title: 'Mimari', desc: 'Dayanıklı çekirdek, ölçülebilir sınırlar.', bullets: ['ADR kararları', 'Domain / veri izleği', 'Güvenlik etiği'] },
-                  { title: 'Geliştirme', desc: 'Okunur kod, görünür davranış, kontrollü yayın.', bullets: ['Gözlemlenebilirlik', 'Feature flags', 'Kod düzeni'] },
-                  { title: 'Doğrulama', desc: 'Kırılmayı önceden fark eden test ağı.', bullets: ['E2E ve yük', 'OWASP notları', 'SAST/DAST'] },
-                  { title: 'Yayın & İşletim', desc: 'Sakin altyapı, ölçülen hizmet kalitesi.', bullets: ['CI/CD & IaC', 'Kanarya', 'SLO/SLI'] },
-                ]}
+                items={t.processItems}
               />
             </div>
           </div>

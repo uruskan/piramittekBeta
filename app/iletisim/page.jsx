@@ -144,6 +144,8 @@ export default function ContactPage() {
       subtitle: "Projeleriniz için bizimle iletişime geçin",
       backHome: "Ana Sayfa",
       contactInfo: "İletişim Bilgileri",
+      email: "E-posta",
+      address: "Adres",
       getInTouch: "Bize Ulaşın",
       name: "Ad Soyad",
       email: "E-posta",
@@ -164,8 +166,10 @@ export default function ContactPage() {
     en: {
       title: "Contact",
       subtitle: "Get in touch with us for your projects",
-      backHome: "Ana Sayfa",
+      backHome: "Home",
       contactInfo: "Contact Information",
+      email: "Email",
+      address: "Address",
       getInTouch: "Get In Touch",
       name: "Full Name",
       email: "Email",
@@ -188,6 +192,8 @@ export default function ContactPage() {
       subtitle: "Kontaktieren Sie uns für Ihre Projekte",
       backHome: "Startseite",
       contactInfo: "Kontaktinformationen",
+      email: "E-Mail",
+      address: "Adresse",
       getInTouch: "Kontakt aufnehmen",
       name: "Vollständiger Name",
       email: "E-Mail",
@@ -376,7 +382,7 @@ export default function ContactPage() {
                     <div className="flex items-start gap-4">
                       <Mail className="text-cyan-400 mt-1" size={20} />
                       <div>
-                        <h3 className="font-bold text-white mb-1">E-posta</h3>
+                        <h3 className="font-bold text-white mb-1">{t.email}</h3>
                         <p className="text-white/80">contact@piramittek.com</p>
                       </div>
                     </div>
@@ -384,11 +390,11 @@ export default function ContactPage() {
                     <div className="flex items-start gap-4">
                       <MapPin className="text-cyan-400 mt-1" size={20} />
                       <div>
-                        <h3 className="font-bold text-white mb-1">Adres</h3>
+                        <h3 className="font-bold text-white mb-1">{t.address}</h3>
                         <p className="text-white/80">
-                          Teknokent Binası
+                          {language === "tr" ? "Teknokent Binası" : language === "en" ? "Technology Center Building" : "Technologiezentrum Gebäude"}
                           <br />
-                          İstanbul, Türkiye
+                          {language === "tr" ? "İstanbul, Türkiye" : language === "en" ? "Istanbul, Turkey" : "Istanbul, Türkei"}
                         </p>
                       </div>
                     </div>
