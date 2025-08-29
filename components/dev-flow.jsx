@@ -32,11 +32,11 @@ export default function DevFlow({ items = [], height = 560 }) {
     const ctx = cnv?.getContext("2d")
     if (!cnv || !ctx) return
 
-    const stepPattern = [80, -100, 0, 110, -60, 20]
+    const stepPattern = [90, -120, 0, 130, -80, 40]
     const baseCardW = 260
-    const cardH = 160
-    const baseGap = 180 // target large spacing
-    const minGap = 28
+    const cardH = 170
+    const baseGap = 220 // target large spacing - increased for better balance
+    const minGap = 35
     const minScale = 0.6 // never smaller than 60% width
 
     // Compute base positions
@@ -193,9 +193,11 @@ export default function DevFlow({ items = [], height = 560 }) {
 
             {/* face */}
             <div className="relative p-6" style={{ transform: "translateZ(2px)" }}>
-              <div className="mb-3 flex items-center gap-3">
-                <span className="px-2.5 py-0.5 text-[10px] font-black tracking-wider text-cyan-300 bg-cyan-400/10 border border-cyan-400/40">{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-white font-extrabold text-base truncate">{it.title}</span>
+              <div className="mb-3">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="px-2.5 py-0.5 text-[10px] font-black tracking-wider text-cyan-300 bg-cyan-400/10 border border-cyan-400/40">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <h3 className="text-white font-extrabold text-base leading-tight">{it.title}</h3>
               </div>
               {it.bullets ? (
                 <ul className="text-white/85 text-sm leading-relaxed grid grid-cols-1 gap-1">

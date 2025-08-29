@@ -347,10 +347,18 @@ export default function ProcessPage() {
           <div className="block md:hidden max-w-2xl mx-auto">
             <MobileProcessSteps 
               items={processSteps.map(step => ({
+                id: step.id,
                 title: step.title[language],
                 desc: step.description[language],
-                bullets: [...step.activities[language], ...step.deliverables[language]]
-              }))} 
+                icon: step.icon,
+                duration: step.duration[language],
+                activities: step.activities[language],
+                deliverables: step.deliverables[language]
+              }))}
+              translations={{
+                activities: t.activities,
+                deliverables: t.deliverables
+              }}
             />
           </div>
 

@@ -269,12 +269,12 @@ export default function HomePage() {
         "Uçtan uca teslimat"
       ],
       processItems: [
-        { title: 'Keşif & Strateji', desc: 'Nereye bakacağımızı belirleyen kuzey yıldızı.', bullets: ['Kuzey yıldızı', 'Sinyaller ve sınırlar', 'Başarı izi'] },
-        { title: 'Deneyim Tasarımı', desc: 'Akışlar ve mikro-etkileşimlerle anlamlı yolculuk.', bullets: ['Akış haritası', 'Prototip ritmi', 'Sistem dili'] },
-        { title: 'Mimari', desc: 'Dayanıklı çekirdek, ölçülebilir sınırlar.', bullets: ['ADR kararları', 'Domain / veri izleği', 'Güvenlik etiği'] },
-        { title: 'Geliştirme', desc: 'Okunur kod, görünür davranış, kontrollü yayın.', bullets: ['Gözlemlenebilirlik', 'Feature flags', 'Kod düzeni'] },
-        { title: 'Doğrulama', desc: 'Kırılmayı önceden fark eden test ağı.', bullets: ['E2E ve yük', 'OWASP notları', 'SAST/DAST'] },
-        { title: 'Yayın & İşletim', desc: 'Sakin altyapı, ölçülen hizmet kalitesi.', bullets: ['CI/CD & IaC', 'Kanarya', 'SLO/SLI'] },
+        { title: 'Keşif & Analiz', desc: 'Proje gereksinimlerinizi analiz ediyor ve hedeflerinizi belirliyoruz.', bullets: ['İhtiyaç Analizi', 'Teknik Araştırma', 'Proje Kapsamı', 'Zaman Planlaması'] },
+        { title: 'Tasarım & Planlama', desc: 'Sistem mimarisini tasarlıyor ve kullanıcı deneyimini planlıyoruz.', bullets: ['UI/UX Tasarım', 'Sistem Mimarisi', 'Veritabanı Tasarımı', 'API Planlama'] },
+        { title: 'Geliştirme', desc: 'Modern teknolojiler ile güvenli ve ölçeklenebilir çözümler geliştiriyoruz.', bullets: ['Frontend Geliştirme', 'Backend Geliştirme', 'API Entegrasyonu', 'Güvenlik İmplementasyonu'] },
+        { title: 'Test & Kalite', desc: 'Kapsamlı testlerle yazılım kalitesini ve güvenilirliğini sağlıyoruz.', bullets: ['Otomatik Testler', 'Performans Testleri', 'Güvenlik Testleri', 'Kullanıcı Testleri'] },
+        { title: 'Dağıtım & Yayın', desc: 'Yazılımınızı güvenli şekilde canlı ortama dağıtıyor ve yayınlıyoruz.', bullets: ['Sunucu Kurulumu', 'Domain Konfigürasyonu', 'SSL ve Güvenlik', 'İzleme Sistemleri'] },
+        { title: 'Bakım & Destek', desc: 'Sürekli izleme, güncelleme ve teknik destek hizmeti sağlıyoruz.', bullets: ['Sistem İzleme', 'Güvenlik Güncellemeleri', 'Performans Optimizasyonu', '7/24 Teknik Destek'] },
       ],
       processSteps: [
         "Keşif & Planlama - İhtiyaçlarınızı anlama",
@@ -318,12 +318,12 @@ export default function HomePage() {
         "End-to-end delivery"
       ],
       processItems: [
-        { title: 'Discovery & Strategy', desc: 'North star that determines where we look.', bullets: ['North star', 'Signals and boundaries', 'Success trail'] },
-        { title: 'Experience Design', desc: 'Meaningful journey with flows and micro-interactions.', bullets: ['Flow map', 'Prototype rhythm', 'System language'] },
-        { title: 'Architecture', desc: 'Resilient core, scalable boundaries.', bullets: ['ADR decisions', 'Domain / data trace', 'Security ethics'] },
-        { title: 'Development', desc: 'Readable code, visible behavior, controlled release.', bullets: ['Observability', 'Feature flags', 'Code organization'] },
-        { title: 'Validation', desc: 'Test network that detects breaks in advance.', bullets: ['E2E and load', 'OWASP notes', 'SAST/DAST'] },
-        { title: 'Deployment & Operations', desc: 'Calm infrastructure, measured service quality.', bullets: ['CI/CD & IaC', 'Canary', 'SLO/SLI'] },
+        { title: 'Discovery & Analysis', desc: 'We analyze your project requirements and define your goals clearly.', bullets: ['Needs Analysis', 'Technical Research', 'Project Scope', 'Timeline Planning'] },
+        { title: 'Design & Planning', desc: 'We design system architecture and plan optimal user experience.', bullets: ['UI/UX Design', 'System Architecture', 'Database Design', 'API Planning'] },
+        { title: 'Development', desc: 'We build secure and scalable solutions using modern technologies.', bullets: ['Frontend Development', 'Backend Development', 'API Integration', 'Security Implementation'] },
+        { title: 'Testing & Quality', desc: 'We ensure software quality and reliability through comprehensive testing.', bullets: ['Automated Tests', 'Performance Tests', 'Security Tests', 'User Testing'] },
+        { title: 'Deployment & Release', desc: 'We safely deploy and release your software to the live environment.', bullets: ['Server Setup', 'Domain Configuration', 'SSL & Security', 'Monitoring Systems'] },
+        { title: 'Maintenance & Support', desc: 'We provide continuous monitoring, updates and technical support services.', bullets: ['System Monitoring', 'Security Updates', 'Performance Optimization', '24/7 Technical Support'] },
       ],
       processSteps: [
         "Discovery & Planning - Understanding your needs",
@@ -368,12 +368,12 @@ export default function HomePage() {
         "End-to-End-Lieferung"
       ],
       processItems: [
-        { title: 'Entdeckung & Strategie', desc: 'Nordstern, der bestimmt, wohin wir schauen.', bullets: ['Nordstern', 'Signale und Grenzen', 'Erfolgsspur'] },
-        { title: 'Erfahrungsdesign', desc: 'Sinnvolle Reise mit Abläufen und Mikrointeraktionen.', bullets: ['Flusskarte', 'Prototyp-Rhythmus', 'Systemsprache'] },
-        { title: 'Architektur', desc: 'Widerstandsfähiger Kern, skalierbare Grenzen.', bullets: ['ADR-Entscheidungen', 'Domäne / Datenspur', 'Sicherheitsethik'] },
-        { title: 'Entwicklung', desc: 'Lesbarer Code, sichtbares Verhalten, kontrollierte Freigabe.', bullets: ['Beobachtbarkeit', 'Feature-Flags', 'Code-Organisation'] },
-        { title: 'Validierung', desc: 'Testnetzwerk, das Brüche im Voraus erkennt.', bullets: ['E2E und Last', 'OWASP-Notizen', 'SAST/DAST'] },
-        { title: 'Bereitstellung & Betrieb', desc: 'Ruhige Infrastruktur, gemessene Servicequalität.', bullets: ['CI/CD & IaC', 'Kanarienvogel', 'SLO/SLI'] },
+        { title: 'Entdeckung & Analyse', desc: 'Wir analysieren Ihre Projektanforderungen und definieren Ihre Ziele klar.', bullets: ['Bedarfsanalyse', 'Technische Recherche', 'Projektumfang', 'Zeitplanung'] },
+        { title: 'Design & Planung', desc: 'Wir entwerfen die Systemarchitektur und planen optimale Benutzererfahrung.', bullets: ['UI/UX Design', 'Systemarchitektur', 'Datenbankdesign', 'API-Planung'] },
+        { title: 'Entwicklung', desc: 'Wir entwickeln sichere und skalierbare Lösungen mit modernen Technologien.', bullets: ['Frontend-Entwicklung', 'Backend-Entwicklung', 'API-Integration', 'Sicherheitsimplementierung'] },
+        { title: 'Tests & Qualität', desc: 'Wir gewährleisten Softwarequalität und Zuverlässigkeit durch umfassende Tests.', bullets: ['Automatisierte Tests', 'Leistungstests', 'Sicherheitstests', 'Benutzertests'] },
+        { title: 'Bereitstellung & Release', desc: 'Wir stellen Ihre Software sicher in der Live-Umgebung bereit und veröffentlichen sie.', bullets: ['Server-Setup', 'Domain-Konfiguration', 'SSL & Sicherheit', 'Monitoring-Systeme'] },
+        { title: 'Wartung & Support', desc: 'Wir bieten kontinuierliche Überwachung, Updates und technische Support-Services.', bullets: ['Systemüberwachung', 'Sicherheitsupdates', 'Leistungsoptimierung', '24/7 Technischer Support'] },
       ],
       processSteps: [
         "Entdeckung & Planung - Ihre Bedürfnisse verstehen",
