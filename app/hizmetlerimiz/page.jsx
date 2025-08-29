@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Code, Brain, Wifi, Shield, Smartphone, Users, ArrowLeft, ExternalLink, ArrowRight, Rocket } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-context"
+import MobileServiceCard from "@/components/mobile-service-card"
 
 export default function ServicesPage() {
   const { language } = useLanguage()
@@ -371,7 +372,7 @@ export default function ServicesPage() {
 
       {/* Global nav is provided by layout */}
 
-      <section className="pt-32 pb-20 relative">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 relative">
         <div className="container mx-auto px-6 text-center">
           <div className="mb-12">
             <div className="w-24 h-24 mx-auto mb-8 relative">
@@ -381,22 +382,36 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 px-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
             {t.title}
           </h1>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
+          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed px-4">{t.subtitle}</p>
         </div>
       </section>
 
-      <section className="py-20 relative">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <section className="py-12 sm:py-16 lg:py-20 relative">
+        <div className="container mx-auto px-4 sm:px-6">
+          {/* Mobile Collapsible Cards */}
+          <div className="block md:hidden space-y-3 max-w-2xl mx-auto">
+            {services.map((service) => (
+              <MobileServiceCard
+                key={service.id}
+                service={service}
+                language={language}
+                t={t}
+                onGetQuote={() => {/* Add quote logic */}}
+              />
+            ))}
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {services.map((service, index) => {
               const Icon = service.icon
               return (
                 <div
                   key={service.id}
-                  className="group relative p-8 border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
+                  className="group relative p-4 sm:p-6 lg:p-8 border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 touch-manipulation"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px))",
                     transform: `perspective(1000px) rotateX(${index % 2 === 0 ? "2deg" : "-2deg"}) rotateY(${index % 3 === 0 ? "1deg" : "-1deg"})`,
@@ -412,15 +427,15 @@ export default function ServicesPage() {
                       >
                         <Icon size={32} style={{ color: service.color }} className="group-hover:animate-pulse" />
                       </div>
-                      <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
                         {service.title[language]}
                       </h3>
                     </div>
 
-                    <p className="text-white/80 text-sm leading-relaxed mb-6">{service.description[language]}</p>
+                    <p className="text-white/80 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">{service.description[language]}</p>
 
                     <div className="mb-6">
-                      <h4 className="text-lg font-bold text-white mb-3">{t.features}:</h4>
+                      <h4 className="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">{t.features}:</h4>
                       <ul className="space-y-2">
                         {service.features[language].map((feature, idx) => (
                           <li key={idx} className="text-white/70 text-sm flex items-center gap-2">
@@ -432,7 +447,7 @@ export default function ServicesPage() {
                     </div>
 
                     <div className="mb-8">
-                      <h4 className="text-lg font-bold text-white mb-3">{t.technologies}:</h4>
+                      <h4 className="text-base sm:text-lg font-bold text-white mb-2 sm:mb-3">{t.technologies}:</h4>
                       <div className="flex flex-wrap gap-2">
                         {service.technologies.map((tech, idx) => (
                           <span
@@ -461,17 +476,17 @@ export default function ServicesPage() {
                       </div>
                     )}
 
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3">
                       <Button
                         size="sm"
-                        className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold flex-1"
+                        className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold flex-1 min-h-[44px] touch-manipulation"
                       >
                         {t.getQuote}
                       </Button>
                       <Button
                         size="sm"
                         variant="outline"
-                        className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 bg-transparent"
+                        className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 bg-transparent min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                       >
                         <ExternalLink size={16} />
                       </Button>
@@ -496,17 +511,17 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-20 relative">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-12 sm:py-16 lg:py-20 relative">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 px-4 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
               {language === "tr"
                 ? "Projenizi Hayata Geçirelim"
                 : language === "en"
                   ? "Let's Bring Your Project to Life"
                   : "Lassen Sie uns Ihr Projekt zum Leben erwecken"}
             </h2>
-            <p className="text-xl text-white/80 mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-white/80 mb-8 sm:mb-12 leading-relaxed px-4">
               {language === "tr"
                 ? "Teknoloji ihtiyaçlarınız için özel çözümler geliştirmeye hazırız. Projelerinizi birlikte planlayalım."
                 : language === "en"

@@ -341,18 +341,18 @@ export default function ProjectsPage() {
 
       {/* Global nav is provided by layout */}
 
-      <section className="pt-32 pb-20 relative">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 relative">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 px-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
             {t.title}
           </h1>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
+          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed px-4">{t.subtitle}</p>
         </div>
       </section>
 
-      <section className="pb-12 relative">
+      <section className="pb-8 sm:pb-12 relative">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 px-4">
             {categories.map((category) => {
               const Icon = category.icon
               const isActive = activeCategory === category.id
@@ -360,7 +360,7 @@ export default function ProjectsPage() {
                 <button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`flex items-center gap-2 px-6 py-3 border transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-3 sm:px-6 border transition-all duration-300 min-h-[44px] touch-manipulation ${
                     isActive
                       ? "border-cyan-400 bg-cyan-400/10 text-cyan-400"
                       : "border-white/20 text-white/70 hover:border-white/40 hover:text-white"
@@ -379,15 +379,15 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="py-20 relative">
+      <section className="py-12 sm:py-16 lg:py-20 relative">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
             {filteredProjects.map((project) => {
               const Icon = project.icon
               return (
                 <div
                   key={project.id}
-                  className="group relative border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer"
+                  className="group relative border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer touch-manipulation"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
                   }}

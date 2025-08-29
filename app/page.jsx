@@ -15,10 +15,13 @@ import Magnetic from "@/components/magnetic"
 import HeroTilt from "@/components/hero-tilt"
 import { useLanguage } from "@/components/language-context"
 import { SectionAnimator } from "@/components/SectionAnimator"
+import MobileProcessSteps from "@/components/mobile-process-steps"
+import SplashLoader from "@/components/splash-loader"
 
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
   const [hasEntered, setHasEntered] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
   const mouseRef = useRef({ x: 0, y: 0, active: false })
@@ -398,10 +401,14 @@ export default function HomePage() {
     return () => clearTimeout(to)
   }, [taglineIndex])
 
+  if (isLoading) {
+    return <SplashLoader onComplete={() => setIsLoading(false)} />
+  }
+
   if (!hasEntered) {
     return (
       <div className="fixed inset-0 bg-black overflow-hidden z-[60]">
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-auto z-10 opacity-60" />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-auto z-10 opacity-40 md:opacity-60" />
         <video
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay
@@ -409,19 +416,22 @@ export default function HomePage() {
           loop
           playsInline
           poster="/placeholder.jpg"
-          preload="auto"
+          preload="metadata"
+          disablePictureInPicture
+          style={{ objectFit: 'cover' }}
         >
           <source src="/video.mp4?v=20250826" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40 z-20" />
 
 
-        <div className="absolute top-6 right-6 z-50 flex gap-2">
+        {/* Language buttons - mobile optimized positioning */}
+        <div className="absolute top-6 right-6 z-50 flex gap-2 md:gap-2">
           {["tr", "en", "de"].map((lang) => (
             <button
               key={lang}
               onClick={() => setLanguage(lang)}
-              className={`text-xs font-bold transition-all px-3 py-2 border backdrop-blur-sm cursor-pointer select-none ${
+              className={`text-xs font-bold transition-all px-3 py-3 md:px-3 md:py-2 border backdrop-blur-sm cursor-pointer select-none min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 language === lang
                   ? "text-cyan-400 border-cyan-400 bg-cyan-400/10"
                   : "text-white/70 hover:text-white border-white/30 hover:border-white/50"
@@ -432,16 +442,16 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="absolute inset-0 flex items-center justify-center z-30">
-          <div className="text-center px-6">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <div className="absolute inset-0 flex items-center justify-center z-30 p-4">
+          <div className="text-center px-4 max-w-4xl mx-auto w-full">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent px-2">
               {t.welcome}
             </h1>
-            <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">{t.subtitle}</p>
+            <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 px-4">{t.subtitle}</p>
             <Button
               size="lg"
               onClick={() => setHasEntered(true)}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-10 py-5 text-lg font-bold transform hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] w-auto touch-manipulation"
             >
               {t.explore}
             </Button>
@@ -455,13 +465,13 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <StarfieldOverlay />
 
-      <section className="min-h-[88vh] flex items-center justify-center relative overflow-hidden">
+      <section className="min-h-[100vh] sm:min-h-[88vh] flex items-center justify-center relative overflow-hidden pt-16 sm:pt-0">
         <HeroTilt>
           <div className="absolute inset-0 z-0">
             <NeuralNetwork />
           </div>
         </HeroTilt>
-        <div className="absolute left-0 top-0 h-full w-1/3 flex items-center justify-center z-0">
+        <div className="hidden md:block absolute left-0 top-0 h-full w-1/3 flex items-center justify-center z-0">
           <HeroAstrolabe />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black z-5" />
@@ -471,25 +481,30 @@ export default function HomePage() {
               background: "radial-gradient(closest-side, rgba(139,92,246,0.18), rgba(6,182,212,0.08) 45%, transparent 70%)",
               filter: "blur(6px)",
             }} />
-            <Pyramid3D size={360} />
+            <div className="block sm:hidden">
+              <Pyramid3D size={200} />
+            </div>
+            <div className="hidden sm:block">
+              <Pyramid3D size={360} />
+            </div>
           </div>
         </HeroTilt>
-        <div className="relative text-center max-w-4xl mx-auto px-6 z-10">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent" style={titleParallax}>
+        <div className="relative text-center max-w-4xl mx-auto px-4 sm:px-6 z-10">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent" style={titleParallax}>
             {t.welcome}
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-1 leading-relaxed">{t.subtitle}</p>
-          <p className={`text-sm md:text-base text-white/70 mb-10 ${glitchOn ? 'glitch' : ''}`} data-text={taglines[taglineIndex]}>
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-2 leading-relaxed px-2">{t.subtitle}</p>
+          <p className={`text-xs sm:text-sm md:text-base text-white/70 mb-8 sm:mb-10 px-4 ${glitchOn ? 'glitch' : ''}`} data-text={taglines[taglineIndex]}>
             {taglines[taglineIndex]}
           </p>
 
-          <div className="flex gap-4 justify-center" style={{ perspective: '1000px' }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center" style={{ perspective: '1000px' }}>
             <HeroTilt>
               <Magnetic>
                 <Button
                   size="lg"
                   asChild
-                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-10 py-5 text-lg font-bold transition-all duration-300"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transition-all duration-300 min-h-[44px] touch-manipulation w-full sm:w-auto max-w-xs sm:max-w-none"
                 >
                   <Link href="/hizmetlerimiz">{t.services}</Link>
                 </Button>
@@ -501,7 +516,7 @@ export default function HomePage() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 px-10 py-5 text-lg font-bold bg-transparent"
+                  className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold bg-transparent min-h-[44px] touch-manipulation w-full sm:w-auto max-w-xs sm:max-w-none"
                 >
                   <Link href="/projeler">{t.projects}</Link>
                 </Button>
@@ -516,16 +531,16 @@ export default function HomePage() {
       </section>
 
       <SectionAnimator>
-        <section className="py-16 relative">
+        <section className="py-12 sm:py-16 relative">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 px-4 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
             {t.capabilities}
           </h2>
-          <div className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-5xl mx-auto px-4">
             {t.skills.map((tag) => (
               <Magnetic key={tag}>
                 <span
-                  className="px-4 py-2 text-sm border border-white/20 text-white/80 bg-white/5 hover:border-cyan-400/50 hover:text-white transition-all duration-300 relative overflow-hidden"
+                  className="px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm border border-white/20 text-white/80 bg-white/5 hover:border-cyan-400/50 hover:text-white transition-all duration-300 relative overflow-hidden min-h-[36px] flex items-center justify-center touch-manipulation"
                 >
                   <span className="relative z-10">{tag}</span>
                   <span className="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></span>
@@ -538,19 +553,19 @@ export default function HomePage() {
     </SectionAnimator>
 
       <SectionAnimator>
-        <section className="py-20 relative">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+        <section className="py-12 sm:py-16 lg:py-20 relative">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 px-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             {t.services}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
             {services.map((service) => {
               const Icon = service.icon
               return (
                 <Magnetic key={service.id}>
                   <div
-                    className="group relative p-8 border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105"
+                    className="group relative p-4 sm:p-6 lg:p-8 border border-white/10 bg-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 touch-manipulation"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
                     }}
@@ -587,45 +602,50 @@ export default function HomePage() {
     </SectionAnimator>
 
       <SectionAnimator>
-        <section className="py-20 relative" id="process">
-          <div className="container mx-auto px-6">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+        <section className="py-12 sm:py-16 lg:py-20 relative" id="process">
+          <div className="container mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 px-4 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
               {t.process}
             </h2>
             <div className="relative">
-              <DevFlow
-                height={560}
-                items={t.processItems}
-              />
+              <div className="block lg:hidden">
+                <MobileProcessSteps items={t.processItems} />
+              </div>
+              <div className="hidden lg:block">
+                <DevFlow
+                  height={560}
+                  items={t.processItems}
+                />
+              </div>
             </div>
           </div>
         </section>
       </SectionAnimator>
 
       <SectionAnimator>
-        <section className="py-20 relative">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+        <section className="py-12 sm:py-16 lg:py-20 relative">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 lg:mb-16 px-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             {t.contact}
           </h2>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="relative p-8 border border-cyan-400/30 bg-black/70 backdrop-blur-xl">
+          <div className="max-w-2xl mx-auto px-4">
+            <div className="relative p-4 sm:p-6 lg:p-8 border border-cyan-400/30 bg-black/70 backdrop-blur-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5" />
 
               <div className="relative z-10">
-                <Button size="lg" asChild className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-black px-12 py-6 font-bold transform hover:scale-105 transition-all duration-300">
+                <Button size="lg" asChild className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-400 hover:to-cyan-400 text-black px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] touch-manipulation w-full sm:w-auto">
                   <Link href="/iletisim">{t.connect}</Link>
                 </Button>
 
-                <div className="mt-8 flex items-center justify-center gap-8 text-white/60">
-                  <div className="flex items-center gap-2">
+                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-white/60">
+                  <div className="flex items-center gap-2 min-h-[44px]">
                     <Mail size={16} />
-                    <span className="text-sm">contact@piramittek.com</span>
+                    <span className="text-xs sm:text-sm">contact@piramittek.com</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-h-[44px]">
                     <ExternalLink size={16} />
-                    <span className="text-sm">piramittek.com</span>
+                    <span className="text-xs sm:text-sm">piramittek.com</span>
                   </div>
                 </div>
               </div>

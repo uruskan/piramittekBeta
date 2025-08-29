@@ -262,7 +262,7 @@ export default function ContactPage() {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
                           />
                         </div>
                         <div>
@@ -273,7 +273,7 @@ export default function ContactPage() {
                             value={formData.email}
                             onChange={handleInputChange}
                             required
-                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
                           />
                         </div>
                       </div>
@@ -286,7 +286,7 @@ export default function ContactPage() {
                             name="company"
                             value={formData.company}
                             onChange={handleInputChange}
-                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
                           />
                         </div>
                         <div>
@@ -296,7 +296,7 @@ export default function ContactPage() {
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                            className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
                           />
                         </div>
                       </div>
@@ -307,7 +307,7 @@ export default function ContactPage() {
                           name="service"
                           value={formData.service}
                           onChange={handleInputChange}
-                          className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                          className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
                         >
                           <option value="">{t.selectService}</option>
                           {services.map((service) => (

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useLanguage } from "@/components/language-context"
+import { Menu, X } from "lucide-react"
 
 export default function SiteNav() {
   const pathname = usePathname()
@@ -11,6 +12,7 @@ export default function SiteNav() {
   const barRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
   const [hoveredItem, setHoveredItem] = useState(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const t = {
     tr: { home: "Ana Sayfa", services: "Hizmetlerimiz", process: "Geliştirme Süreci", projects: "Projeler", contact: "İletişim" },
@@ -46,6 +48,19 @@ export default function SiteNav() {
     }
   }, [])
 
+  // Handle mobile menu body scroll lock
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
+
   const onNavLeave = () => {}
 
   return (
@@ -74,7 +89,16 @@ export default function SiteNav() {
                 <span className="text-lg font-bold text-white group-hover:text-cyan-400 transition-all duration-300 group-hover:tracking-wider">PiramitTek</span>
               </Link>
 
-              {/* Centered nav */}
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-white hover:text-cyan-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+
+              {/* Desktop nav */}
               <div className="hidden md:flex items-center gap-1 relative">
                 {items.map((item) => {
                   const active = pathname === item.href
@@ -111,13 +135,13 @@ export default function SiteNav() {
                 })}
               </div>
 
-              {/* Lang with enhanced animations */}
-              <div className="flex items-center gap-2">
+              {/* Desktop Language buttons */}
+              <div className="hidden md:flex items-center gap-2">
                 {["tr", "en", "de"].map((lang) => (
                   <button
                     key={lang}
                     onClick={() => setLanguage(lang)}
-                    className={`relative text-xs font-bold transition-all duration-300 px-3 py-1.5 border overflow-hidden group ${
+                    className={`relative text-xs font-bold transition-all duration-300 px-3 py-2 border overflow-hidden group min-h-[44px] min-w-[44px] flex items-center justify-center ${
                       language === lang
                         ? "text-cyan-400 border-cyan-400 bg-cyan-400/10 scale-105"
                         : "text-white/60 hover:text-white border-white/20 hover:border-white/40 hover:scale-105"
@@ -147,6 +171,66 @@ export default function SiteNav() {
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/30 to-cyan-400/0 animate-pulse" />
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-black z-40">
+            <div className="container mx-auto px-4 py-4">
+              <div className="space-y-0">
+                {items.map((item) => {
+                  const active = pathname === item.href
+                  return (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block text-sm font-semibold py-3 px-4 border-b border-white/10 transition-all duration-200 min-h-[44px] flex items-center ${
+                        active 
+                          ? "text-cyan-400 bg-cyan-400/5" 
+                          : "text-white hover:text-cyan-300 hover:bg-white/5"
+                      }`}
+                    >
+                      <span className="relative">
+                        {t[item.key]}
+                        {active && (
+                          <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400 rounded-full" />
+                        )}
+                      </span>
+                    </Link>
+                  )
+                })}
+                
+                {/* Mobile Language Switcher */}
+                <div className="pt-4 mt-4 border-t border-white/10">
+                  <h3 className="text-white/50 text-xs font-bold mb-3 uppercase tracking-wider px-4">
+                    {language === "tr" ? "Dil" : language === "en" ? "Language" : "Sprache"}
+                  </h3>
+                  <div className="grid grid-cols-3 gap-1 px-4">
+                    {["tr", "en", "de"].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          setLanguage(lang)
+                          setMobileMenuOpen(false)
+                        }}
+                        className={`relative text-xs font-bold transition-all duration-200 py-2 px-3 rounded border overflow-hidden min-h-[36px] flex items-center justify-center ${
+                          language === lang
+                            ? "text-cyan-400 border-cyan-400/40 bg-cyan-400/10"
+                            : "text-white hover:text-cyan-300 border-white/20 hover:border-cyan-400/40 hover:bg-white/10"
+                        }`}
+                      >
+                        <span className="relative z-10">{lang.toUpperCase()}</span>
+                        {language === lang && (
+                          <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-400/10" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   )

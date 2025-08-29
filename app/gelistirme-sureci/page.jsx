@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle, Clock, Users, Code, TestTube, Rocket, Wrench, A
 import Link from "next/link"
 import ProcessGraph from "@/components/process-graph"
 import { useLanguage } from "@/components/language-context"
+import MobileProcessSteps from "@/components/mobile-process-steps"
 
 export default function ProcessPage() {
   const { language } = useLanguage()
@@ -331,23 +332,32 @@ export default function ProcessPage() {
 
       {/* Global nav is provided by layout */}
 
-      <section className="pt-28 pb-6 relative">
+      <section className="pt-24 sm:pt-28 pb-4 sm:pb-6 relative">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 px-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
             {t.title}
           </h1>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
-        </div>
-        <div className="mt-8">
-          <ProcessGraph className="opacity-90" />
+          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed px-4">{t.subtitle}</p>
         </div>
       </section>
 
-      <section className="py-12 relative">
+      <section className="py-8 sm:py-12 relative">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Mobile Collapsible Steps */}
+          <div className="block md:hidden max-w-2xl mx-auto">
+            <MobileProcessSteps 
+              items={processSteps.map(step => ({
+                title: step.title[language],
+                desc: step.description[language],
+                bullets: [...step.activities[language], ...step.deliverables[language]]
+              }))} 
+            />
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {processSteps.map((step, index) => (
-              <div key={step.id} className="relative p-6 border border-white/15 hover:border-cyan-400/50 bg-black/60 backdrop-blur-xl transition-all">
+              <div key={step.id} className="relative p-4 sm:p-6 border border-white/15 hover:border-cyan-400/50 bg-black/60 backdrop-blur-xl transition-all touch-manipulation">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 rounded-lg bg-cyan-400/10 border border-cyan-400/40">
                     {React.createElement(step.icon, { size: 24, className: "text-cyan-400" })}
@@ -378,7 +388,7 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      <section className="py-20 relative">
+      <section className="py-12 sm:py-16 lg:py-20 relative">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
