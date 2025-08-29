@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Code, Brain, Wifi, Shield, ChevronDown, Mail, ExternalLink } from "lucide-react"
-import dynamic from "next/dynamic"
-const HeroAstrolabe = dynamic(() => import("@/components/hero/HeroAstrolabe").then(m => m.default).catch(() => () => null), { ssr: false })
 import { Pyramid3D } from "@/components/pyramid-3d"
 import { NeuralNetwork } from "@/components/neural-network"
 import useParallax from "@/components/use-parallax"
@@ -24,7 +22,6 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [videoLoaded, setVideoLoaded] = useState(false)
   const canvasRef = useRef(null)
-  const videoRef = useRef(null)
   const particlesRef = useRef([])
   const mouseRef = useRef({ x: 0, y: 0, active: false })
   const pyramidParallax = useParallax({ speed: -0.05 })
@@ -496,9 +493,6 @@ export default function HomePage() {
             <NeuralNetwork />
           </div>
         </HeroTilt>
-        <div className="hidden md:block absolute left-0 top-0 h-full w-1/3 flex items-center justify-center z-0">
-          <HeroAstrolabe />
-        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black z-5" />
         <HeroTilt>
           <div className="absolute top-20 left-1/2 -translate-x-1/2 opacity-90 pointer-events-none z-0" style={pyramidParallax}>

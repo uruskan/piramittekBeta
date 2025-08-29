@@ -12,9 +12,9 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
 
   const t = {
-    tr: { home: "Ana Sayfa", services: "Hizmetlerimiz", process: "Geliştirme Süreci", projects: "Projeler", contact: "İletişim" },
-    en: { home: "Home", services: "Services", process: "Process", projects: "Projects", contact: "Contact" },
-    de: { home: "Startseite", services: "Dienstleistungen", process: "Prozess", projects: "Projekte", contact: "Kontakt" },
+    tr: { home: "Ana Sayfa", about: "Hakkımızda", services: "Hizmetlerimiz", process: "Geliştirme Süreci", projects: "Projeler", contact: "İletişim" },
+    en: { home: "Home", about: "About", services: "Services", process: "Process", projects: "Projects", contact: "Contact" },
+    de: { home: "Startseite", about: "Über Uns", services: "Dienstleistungen", process: "Prozess", projects: "Projekte", contact: "Kontakt" },
   }[language]
 
   const items = [
@@ -22,6 +22,7 @@ export default function MobileNav() {
     { key: "services", href: "/hizmetlerimiz" },
     { key: "process", href: "/gelistirme-sureci" },
     { key: "projects", href: "/projeler" },
+    { key: "about", href: "/hakkimizda" },
     { key: "contact", href: "/iletisim" },
   ]
 
