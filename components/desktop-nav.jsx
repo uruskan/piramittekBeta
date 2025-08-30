@@ -62,14 +62,81 @@ export default function DesktopNav() {
         >
           <div className="container mx-auto px-6">
             <div className="h-16 flex items-center justify-between">
-              {/* Brand mark */}
+              {/* Brand mark with True 3D Pyramid */}
               <Link href="/" className="flex items-center gap-3 group">
-                <span className="relative w-7 h-7 grid place-items-center">
-                  <span className="absolute inset-0 rotate-45 border-2 border-cyan-400 group-hover:animate-spin-slow transition-transform duration-500" />
-                  <span className="absolute inset-[3px] rotate-45 border border-purple-400 group-hover:border-cyan-400 transition-colors duration-500" />
-                  <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-purple-400/20 to-cyan-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-                  <span className="relative text-[10px] font-black text-cyan-400 group-hover:text-white transition-colors duration-500">PT</span>
-                </span>
+                <div className="relative w-8 h-8" style={{ perspective: '200px' }}>
+                  {/* True 3D Pyramid using CSS transforms */}
+                  <div className="relative w-full h-full transform-style-preserve-3d animate-spin-slow group-hover:animate-pause">
+                    {/* Front face */}
+                    <div 
+                      className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-cyan-400"
+                      style={{
+                        left: '50%',
+                        top: '30%',
+                        transform: 'translateX(-50%) rotateX(0deg) translateZ(8px)',
+                        filter: 'drop-shadow(0 0 4px rgba(6, 182, 212, 0.5))'
+                      }}
+                    />
+                    
+                    {/* Right face */}
+                    <div 
+                      className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-purple-500"
+                      style={{
+                        left: '50%',
+                        top: '30%',
+                        transform: 'translateX(-50%) rotateY(72deg) translateZ(8px)',
+                        filter: 'drop-shadow(0 0 4px rgba(139, 92, 246, 0.4))'
+                      }}
+                    />
+                    
+                    {/* Back-right face */}
+                    <div 
+                      className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-blue-500"
+                      style={{
+                        left: '50%',
+                        top: '30%',
+                        transform: 'translateX(-50%) rotateY(144deg) translateZ(8px)',
+                        filter: 'drop-shadow(0 0 4px rgba(59, 130, 246, 0.3))'
+                      }}
+                    />
+                    
+                    {/* Back-left face */}
+                    <div 
+                      className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-indigo-600"
+                      style={{
+                        left: '50%',
+                        top: '30%',
+                        transform: 'translateX(-50%) rotateY(216deg) translateZ(8px)',
+                        filter: 'drop-shadow(0 0 4px rgba(67, 56, 202, 0.3))'
+                      }}
+                    />
+                    
+                    {/* Left face */}
+                    <div 
+                      className="absolute w-0 h-0 border-l-4 border-r-4 border-b-6 border-transparent border-b-sky-400"
+                      style={{
+                        left: '50%',
+                        top: '30%',
+                        transform: 'translateX(-50%) rotateY(288deg) translateZ(8px)',
+                        filter: 'drop-shadow(0 0 4px rgba(56, 189, 248, 0.4))'
+                      }}
+                    />
+                    
+                    {/* Apex glow */}
+                    <div 
+                      className="absolute w-1 h-1 bg-white rounded-full opacity-80 animate-pulse"
+                      style={{
+                        left: '50%',
+                        top: '20%',
+                        transform: 'translateX(-50%) translateZ(12px)',
+                        boxShadow: '0 0 8px rgba(255, 255, 255, 0.8)'
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Enhanced volumetric glow */}
+                  <div className="absolute inset-0 bg-gradient-radial from-cyan-400/30 via-purple-400/15 to-transparent blur-lg opacity-0 group-hover:opacity-100 transition-all duration-700 scale-150 group-hover:scale-200" />
+                </div>
                 <span className="text-lg font-bold text-white group-hover:text-cyan-400 transition-all duration-300 group-hover:tracking-wider">PiramitTek</span>
               </Link>
 

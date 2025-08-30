@@ -39,13 +39,37 @@ export default function SplashLoader({ onComplete, videoLoaded = false }) {
       </div>
       
       <div className="text-center space-y-8 px-6">
-        {/* Logo/Brand */}
+        {/* Logo/Brand - 2.5D Pyramid */}
         <div className="relative w-16 h-16 mx-auto">
-          <div className="absolute inset-0 border-2 border-cyan-400 rotate-45 animate-spin" />
-          <div className="absolute inset-2 border border-purple-400 rotate-45" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs font-black text-cyan-400">PT</span>
-          </div>
+          <svg viewBox="0 0 64 64" className="w-full h-full animate-pulse">
+            {/* Gradient definitions */}
+            <defs>
+              <linearGradient id="splashPyramidGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="splashPyramidGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.7" />
+              </linearGradient>
+              <linearGradient id="splashPyramidGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
+              </linearGradient>
+            </defs>
+            
+            {/* Back face (darker) */}
+            <path d="M32 12 L48 44 L32 52 Z" fill="url(#splashPyramidGradient3)" />
+            
+            {/* Right face (medium) */}
+            <path d="M32 12 L48 44 L16 44 Z" fill="url(#splashPyramidGradient2)" />
+            
+            {/* Left face (brightest) */}
+            <path d="M32 12 L16 44 L32 52 Z" fill="url(#splashPyramidGradient1)" />
+            
+            {/* Top glow */}
+            <circle cx="32" cy="12" r="3" fill="#ffffff" opacity="0.8" />
+          </svg>
         </div>
 
         {/* Loading text */}
