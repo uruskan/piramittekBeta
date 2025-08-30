@@ -14,7 +14,6 @@ export default function ContactPage() {
     email: "",
     company: "",
     phone: "",
-    service: "",
     message: "",
     honey_pot: "",
   })
@@ -129,14 +128,6 @@ export default function ContactPage() {
 
   
 
-  const services = [
-    { value: "software", label: { tr: "Yazılım Geliştirme", en: "Software Development", de: "Softwareentwicklung" } },
-    { value: "ai", label: { tr: "Yapay Zeka & ML", en: "AI & Machine Learning", de: "KI & Maschinelles Lernen" } },
-    { value: "iot", label: { tr: "IoT & Otomasyon", en: "IoT & Automation", de: "IoT & Automatisierung" } },
-    { value: "security", label: { tr: "Siber Güvenlik", en: "Cybersecurity", de: "Cybersicherheit" } },
-    { value: "mobile", label: { tr: "Mobil Geliştirme", en: "Mobile Development", de: "Mobile Entwicklung" } },
-    { value: "consulting", label: { tr: "IT Danışmanlık", en: "IT Consulting", de: "IT-Beratung" } },
-  ]
 
   const translations = {
     tr: {
@@ -151,7 +142,6 @@ export default function ContactPage() {
       email: "E-posta",
       company: "Şirket",
       phone: "Telefon",
-      service: "Hizmet Seçin",
       message: "Mesajınız",
       send: "Gönder",
       sending: "Gönderiliyor...",
@@ -161,7 +151,6 @@ export default function ContactPage() {
       mondayFriday: "Pazartesi - Cuma: 09:00 - 18:00",
       responseTime: "Yanıt Süresi",
       within24Hours: "24 saat içinde",
-      selectService: "Hizmet seçin...",
     },
     en: {
       title: "Contact",
@@ -175,7 +164,6 @@ export default function ContactPage() {
       email: "Email",
       company: "Company",
       phone: "Phone",
-      service: "Select Service",
       message: "Your Message",
       send: "Send",
       sending: "Sending...",
@@ -185,7 +173,6 @@ export default function ContactPage() {
       mondayFriday: "Monday - Friday: 09:00 - 18:00",
       responseTime: "Response Time",
       within24Hours: "Within 24 hours",
-      selectService: "Select service...",
     },
     de: {
       title: "Kontakt",
@@ -199,7 +186,6 @@ export default function ContactPage() {
       email: "E-Mail",
       company: "Unternehmen",
       phone: "Telefon",
-      service: "Service auswählen",
       message: "Ihre Nachricht",
       send: "Senden",
       sending: "Wird gesendet...",
@@ -210,7 +196,6 @@ export default function ContactPage() {
       mondayFriday: "Montag - Freitag: 09:00 - 18:00",
       responseTime: "Antwortzeit",
       within24Hours: "Innerhalb von 24 Stunden",
-      selectService: "Service auswählen...",
     },
   }
 
@@ -301,22 +286,6 @@ export default function ContactPage() {
                         </div>
                       </div>
 
-                      <div>
-                        <label className="block text-white/80 mb-2 text-sm font-bold">{t.service}</label>
-                        <select
-                          name="service"
-                          value={formData.service}
-                          onChange={handleInputChange}
-                          className="w-full p-3 bg-black/50 border border-white/20 text-white focus:border-cyan-400 focus:outline-none transition-colors min-h-[44px] touch-manipulation"
-                        >
-                          <option value="">{t.selectService}</option>
-                          {services.map((service) => (
-                            <option key={service.value} value={service.value}>
-                              {service.label[language]}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
 
                       <div>
                         <label className="block text-white/80 mb-2 text-sm font-bold">{t.message} *</label>

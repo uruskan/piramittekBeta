@@ -140,8 +140,8 @@ export default function ProjectsPage() {
         en: ["Product Management", "Payment Integration", "Order Tracking", "Admin Panel"],
         de: ["Produktverwaltung", "Zahlungsintegration", "Bestellverfolgung", "Admin-Panel"],
       },
-      duration: "3 months",
-      team: 4,
+      duration: "3 ay",
+      team: "4 kişi",
       year: "2024",
     },
     {
@@ -166,8 +166,8 @@ export default function ProjectsPage() {
         en: ["Light Control", "Temperature Management", "Security System", "Energy Monitoring"],
         de: ["Lichtsteuerung", "Temperaturmanagement", "Sicherheitssystem", "Energieüberwachung"],
       },
-      duration: "4 months",
-      team: 3,
+      duration: "4 ay",
+      team: "3 kişi",
       year: "2024",
     },
     {
@@ -192,8 +192,8 @@ export default function ProjectsPage() {
         en: ["Natural Language Understanding", "Multi-language Support", "Ticket Management", "Analytics Dashboard"],
         de: ["Natürliches Sprachverständnis", "Mehrsprachiger Support", "Ticket-Management", "Analytics-Dashboard"],
       },
-      duration: "5 months",
-      team: 5,
+      duration: "5 ay",
+      team: "5 kişi",
       year: "2023",
     },
     {
@@ -218,8 +218,8 @@ export default function ProjectsPage() {
         en: ["Biometric Login", "Money Transfer", "Bill Payment", "Investment Tracking"],
         de: ["Biometrische Anmeldung", "Geldtransfer", "Rechnungszahlung", "Investment-Tracking"],
       },
-      duration: "6 months",
-      team: 6,
+      duration: "6 ay",
+      team: "6 kişi",
       year: "2023",
     },
     {
@@ -270,8 +270,8 @@ export default function ProjectsPage() {
         en: ["Human Resources", "Accounting", "Inventory Management", "CRM"],
         de: ["Personalwesen", "Buchhaltung", "Lagerverwaltung", "CRM"],
       },
-      duration: "8 months",
-      team: 8,
+      duration: "8 ay",
+      team: "8 kişi",
       year: "2023",
     },
   ]
@@ -302,6 +302,8 @@ export default function ProjectsPage() {
       closeProject: "Kapat",
       allProjects: "Tüm Projeler",
       projectCount: "proje",
+      projectPrivacy: "🔒 Projelerimiz gizlilik anlaşmaları nedeniyle korunmaktadır. Detaylı bilgi için bizimle iletişime geçin.",
+      getInfo: "Bilgi Al",
     },
     en: {
       title: "Our Projects",
@@ -316,6 +318,8 @@ export default function ProjectsPage() {
       closeProject: "Close",
       allProjects: "All Projects",
       projectCount: "projects",
+      projectPrivacy: "🔒 Our projects are protected due to confidentiality agreements. Contact us for detailed information.",
+      getInfo: "Get Info",
     },
     de: {
       title: "Unsere Projekte",
@@ -330,6 +334,8 @@ export default function ProjectsPage() {
       closeProject: "Schließen",
       allProjects: "Alle Projekte",
       projectCount: "Projekte",
+      projectPrivacy: "🔒 Unsere Projekte sind aufgrund von Vertraulichkeitsvereinbarungen geschützt. Kontaktieren Sie uns für detaillierte Informationen.",
+      getInfo: "Info erhalten",
     },
   }
 
@@ -466,17 +472,17 @@ export default function ProjectsPage() {
 
                   <p className="text-white/90 leading-relaxed mb-6">{selectedProject.description[language]}</p>
 
-                  <div className="flex gap-4">
-                    <Button className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-black font-bold">
-                      <ExternalLink size={16} className="mr-2" />
-                      {t.viewProject}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 bg-transparent"
+                  <div className="p-4 bg-white/5 border border-white/20 rounded-lg">
+                    <p className="text-white/80 text-sm text-center">
+                      {t.projectPrivacy}
+                    </p>
+                    <Button 
+                      className="mt-3 w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-black font-bold"
+                      asChild
                     >
-                      <Github size={16} className="mr-2" />
-                      GitHub
+                      <Link href="/iletisim">
+                        {t.getInfo}
+                      </Link>
                     </Button>
                   </div>
                 </div>

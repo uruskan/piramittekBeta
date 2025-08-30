@@ -22,6 +22,7 @@ import {
   Shield,
   Heart
 } from "lucide-react"
+import TrustedBrands from "@/components/trusted-brands"
 
 export default function AboutPage() {
   const { language } = useLanguage()
@@ -182,38 +183,23 @@ export default function AboutPage() {
     {
       id: 1,
       name: "Süleyman Beyt Baylas",
-      role: language === "tr" ? "Kurucu & CEO" : language === "en" ? "Chief Executive Officer" : "Geschäftsführer",
+      role: "CEO",
       image: "/beytBaylas.jpeg", // From piramittek.com
-      bio: language === "tr" 
-        ? "PiramitTek'in kurucusu ve CEO'su olarak, şirket vizyonu ve stratejik yönümüzü belirliyor" 
-        : language === "en" 
-        ? "Founder and CEO of PiramitTek, Süleyman drives our company vision and strategic direction"
-        : "Gründer und CEO von PiramitTek, bestimmt unsere Unternehmensvision und strategische Ausrichtung",
       linkedin: "#",
       twitter: "#"
     },
     {
       id: 2,
       name: "Tahir Erdogan",
-      role: language === "tr" ? "Mali İşler Müdürü" : language === "en" ? "Chief Financial Officer" : "Finanzvorstand",
+      role: "CFO",
       image: "/tahirErdogan.jpeg", // From piramittek.com
-      bio: language === "tr" 
-        ? "Mali operasyonlarımızı ve stratejik planlamayı yönetir" 
-        : language === "en" 
-        ? "Tahir manages our financial operations and strategic planning"
-        : "Verwaltet unsere Finanzoperationen und strategische Planung",
       linkedin: "#"
     },
     {
       id: 3,
       name: "Umut Piynar",
-      role: language === "tr" ? "CTO" : language === "en" ? "Chief Technology Officer" : "Technischer Leiter",
+      role: "CTO",
       image: "/umutPiynar.png", // From piramittek.com
-      bio: language === "tr" 
-        ? "Yazılım mühendisliği alanındaki uzmanlığıyla geliştirme ekibimizi yönetir" 
-        : language === "en" 
-        ? "Umut leads our development team with expertise in software engineering"
-        : "Leitet unser Entwicklungsteam mit Expertise in der Softwaretechnik",
       linkedin: "#",
       github: "#"
     }
@@ -438,8 +424,7 @@ export default function AboutPage() {
                   
                   <div className="p-4">
                     <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
-                    <p className="text-cyan-400 text-sm mb-2">{member.role}</p>
-                    <p className="text-white/60 text-xs">{member.bio}</p>
+                    <p className="text-cyan-400 text-sm">{member.role}</p>
                   </div>
                 </div>
               </div>
@@ -447,6 +432,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Trusted Brands Section */}
+      <TrustedBrands />
 
       {/* Work Culture Section */}
       <section className="py-16 sm:py-20 relative">

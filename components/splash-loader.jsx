@@ -52,7 +52,7 @@ export default function SplashLoader({ onComplete, videoLoaded = false }) {
         <div>
           <h2 className="text-xl font-bold text-white mb-2">PiramitTek</h2>
           <p className="text-sm text-white/60">
-            {stage === 'ready' ? 'Hazır!' : progress >= 100 && !videoLoaded ? 'Video yükleniyor...' : 'Yükleniyor...'}
+            {stage === 'ready' ? 'Hazır!' : 'Yükleniyor...'}
           </p>
         </div>
 

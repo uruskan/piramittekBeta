@@ -15,6 +15,7 @@ import { useLanguage } from "@/components/language-context"
 import { SectionAnimator } from "@/components/SectionAnimator"
 import MobileProcessSteps from "@/components/mobile-process-steps"
 import SplashLoader from "@/components/splash-loader"
+import TrustedBrands from "@/components/trusted-brands"
 
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
@@ -30,10 +31,14 @@ export default function HomePage() {
   const [glitchOn, setGlitchOn] = useState(false)
 
   useEffect(() => {
-    // Check if user has already entered before
-    const hasEnteredBefore = sessionStorage.getItem('hasEnteredSite')
-    if (hasEnteredBefore === 'true') {
-      setHasEntered(true)
+    // Check if user has already seen splash screen this session
+    if (typeof window !== 'undefined') {
+      const hasSeenSplash = sessionStorage.getItem('hasSeenSplash')
+      if (hasSeenSplash === 'true') {
+        setHasEntered(true)
+        setIsLoading(false)
+        return
+      }
     }
     
     // Preload video
@@ -251,6 +256,8 @@ export default function HomePage() {
       aboutTitle: "Yenilikçi Yazılım Çözümleri",
       aboutDesc: "İhtiyaçlarınızı gerçekten karşılayan çözümler sunmak için müşteri odaklı bir yaklaşım",
       capabilities: "Yeteneklerimiz",
+      trustedBrands: "Bize Güvenen Markalar",
+      trustedBrandsDesc: "Güvenilir teknoloji ortağınız olarak, sektör liderleriyle çalışıyoruz",
       skills: [
         "Web Uygulamaları",
         "Mobil (iOS/Android)",
@@ -300,6 +307,8 @@ export default function HomePage() {
       aboutTitle: "Innovative Software Solutions",
       aboutDesc: "A client-centric approach to deliver solutions that truly meet your needs",
       capabilities: "Our Capabilities",
+      trustedBrands: "Brands That Trust Us",
+      trustedBrandsDesc: "As your trusted technology partner, we work with industry leaders",
       skills: [
         "Web Applications",
         "Mobile (iOS/Android)",
@@ -350,6 +359,8 @@ export default function HomePage() {
       aboutDesc:
         "Ein kundenorientierter Ansatz zur Bereitstellung von Lösungen, die Ihre Bedürfnisse wirklich erfüllen",
       capabilities: "Unsere Fähigkeiten",
+      trustedBrands: "Marken, die uns vertrauen",
+      trustedBrandsDesc: "Als Ihr vertrauenswürdiger Technologiepartner arbeiten wir mit Branchenführern",
       skills: [
         "Webanwendungen",
         "Mobil (iOS/Android)",
@@ -420,8 +431,13 @@ export default function HomePage() {
     return () => clearTimeout(to)
   }, [taglineIndex])
 
-  if (isLoading) {
-    return <SplashLoader onComplete={() => setIsLoading(false)} videoLoaded={videoLoaded} />
+  if (isLoading && (typeof window === 'undefined' || !sessionStorage.getItem('hasSeenSplash'))) {
+    return <SplashLoader onComplete={() => {
+      setIsLoading(false)
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('hasSeenSplash', 'true')
+      }
+    }} videoLoaded={videoLoaded} />
   }
 
   if (!hasEntered) {
@@ -445,12 +461,12 @@ export default function HomePage() {
 
 
         {/* Language buttons - mobile optimized positioning */}
-        <div className="absolute top-6 right-6 z-50 flex gap-2 md:gap-2">
+        <div className="absolute top-4 right-4 z-50 flex gap-1.5 md:gap-2">
           {["tr", "en", "de"].map((lang) => (
             <button
               key={lang}
               onClick={() => setLanguage(lang)}
-              className={`text-xs font-bold transition-all px-3 py-3 md:px-3 md:py-2 border backdrop-blur-sm cursor-pointer select-none min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`text-xs font-bold transition-all px-2.5 py-2.5 md:px-3 md:py-2 border backdrop-blur-sm cursor-pointer select-none min-h-[40px] min-w-[40px] flex items-center justify-center ${
                 language === lang
                   ? "text-cyan-400 border-cyan-400 bg-cyan-400/10"
                   : "text-white/70 hover:text-white border-white/30 hover:border-white/50"
@@ -471,7 +487,9 @@ export default function HomePage() {
               size="lg"
               onClick={() => {
                 setHasEntered(true)
-                sessionStorage.setItem('hasEnteredSite', 'true')
+                if (typeof window !== 'undefined') {
+                  sessionStorage.setItem('hasSeenSplash', 'true')
+                }
               }}
               className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] w-auto touch-manipulation"
             >
@@ -517,13 +535,13 @@ export default function HomePage() {
             {taglines[taglineIndex]}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center" style={{ perspective: '1000px' }}>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4" style={{ perspective: '1000px' }}>
             <HeroTilt>
               <Magnetic>
                 <Button
                   size="lg"
                   asChild
-                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transition-all duration-300 min-h-[44px] touch-manipulation w-full sm:w-auto max-w-xs sm:max-w-none"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-6 py-3.5 sm:px-10 sm:py-5 text-sm sm:text-lg font-bold transition-all duration-300 min-h-[44px] touch-manipulation w-full sm:w-auto"
                 >
                   <Link href="/hizmetlerimiz">{t.services}</Link>
                 </Button>
@@ -535,7 +553,7 @@ export default function HomePage() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold bg-transparent min-h-[44px] touch-manipulation w-full sm:w-auto max-w-xs sm:max-w-none"
+                  className="border-white/30 text-white hover:border-cyan-400 hover:text-cyan-400 px-6 py-3.5 sm:px-10 sm:py-5 text-sm sm:text-lg font-bold bg-transparent min-h-[44px] touch-manipulation w-full sm:w-auto"
                 >
                   <Link href="/projeler">{t.projects}</Link>
                 </Button>
@@ -639,6 +657,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+      </SectionAnimator>
+
+      <SectionAnimator>
+        <TrustedBrands />
       </SectionAnimator>
 
       <SectionAnimator>
