@@ -511,10 +511,10 @@ export default function AboutPage() {
                   </ul>
                 </div>
                 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold flex-1"
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold w-full sm:flex-1"
                     asChild
                   >
                     <Link href="/iletisim">
@@ -525,7 +525,7 @@ export default function AboutPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black font-bold flex-1 bg-transparent"
+                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black font-bold bg-transparent w-full sm:flex-1"
                   >
                     {t.joinTeam}
                   </Button>

@@ -20,8 +20,9 @@ import TrustedBrands from "@/components/trusted-brands"
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
   const [hasEntered, setHasEntered] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
   const mouseRef = useRef({ x: 0, y: 0, active: false })
@@ -31,18 +32,15 @@ export default function HomePage() {
   const [glitchOn, setGlitchOn] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Check if user has already seen splash screen this session
-    if (typeof window !== 'undefined') {
-      const hasSeenSplash = sessionStorage.getItem('hasSeenSplash')
-      if (hasSeenSplash === 'true') {
-        setHasEntered(true)
-        setIsLoading(false)
-        return
-      }
-    }
-    
-    // Preload video
-    const preloadVideo = () => {
+    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash')
+    if (hasSeenSplash === 'true') {
+      setHasEntered(true)
+      setIsLoading(false)
+    } else {
+      setIsLoading(true)
+      // Preload video
       const video = document.createElement('video')
       video.src = '/video.mp4?v=20250826'
       video.preload = 'auto'
@@ -54,8 +52,6 @@ export default function HomePage() {
         setVideoLoaded(true)
       }
     }
-    
-    preloadVideo()
   }, [])
 
   useEffect(() => {
@@ -431,12 +427,15 @@ export default function HomePage() {
     return () => clearTimeout(to)
   }, [taglineIndex])
 
-  if (isLoading && (typeof window === 'undefined' || !sessionStorage.getItem('hasSeenSplash'))) {
+  // Don't render anything until mounted to avoid hydration issues
+  if (!mounted) {
+    return null
+  }
+
+  if (isLoading) {
     return <SplashLoader onComplete={() => {
       setIsLoading(false)
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('hasSeenSplash', 'true')
-      }
+      sessionStorage.setItem('hasSeenSplash', 'true')
     }} videoLoaded={videoLoaded} />
   }
 
@@ -487,9 +486,7 @@ export default function HomePage() {
               size="lg"
               onClick={() => {
                 setHasEntered(true)
-                if (typeof window !== 'undefined') {
-                  sessionStorage.setItem('hasSeenSplash', 'true')
-                }
+                sessionStorage.setItem('hasSeenSplash', 'true')
               }}
               className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] w-auto touch-manipulation"
             >
