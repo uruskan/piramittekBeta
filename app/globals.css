@@ -494,12 +494,6 @@
   animation: ripple 0.6s ease-out;
 }
 
-/* Splash video tweaks for mobile */
-.splash-video { display: block; }
-@media (max-width: 640px) {
-  .splash-video { display: none; }
-}
-
 /* Mobile navigation enhancements */
 @media (max-width: 768px) {
   /* Ensure mobile navigation is always visible */

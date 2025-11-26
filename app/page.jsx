@@ -14,14 +14,11 @@ import HeroTilt from "@/components/hero-tilt"
 import { useLanguage } from "@/components/language-context"
 import { SectionAnimator } from "@/components/SectionAnimator"
 import MobileProcessSteps from "@/components/mobile-process-steps"
-import SplashLoader from "@/components/splash-loader"
 import TrustedBrands from "@/components/trusted-brands"
 
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
   const [hasEntered, setHasEntered] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [videoLoaded, setVideoLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
@@ -33,25 +30,6 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true)
-    // Check if user has already seen splash screen this session
-    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash')
-    if (hasSeenSplash === 'true') {
-      setHasEntered(true)
-      setIsLoading(false)
-    } else {
-      setIsLoading(true)
-      // Preload video
-      const video = document.createElement('video')
-      video.src = '/video.mp4?v=20250826'
-      video.preload = 'auto'
-      video.oncanplaythrough = () => {
-        setVideoLoaded(true)
-      }
-      video.onerror = () => {
-        // If video fails to load, proceed anyway
-        setVideoLoaded(true)
-      }
-    }
   }, [])
 
   useEffect(() => {
@@ -430,13 +408,6 @@ export default function HomePage() {
   // Don't render anything until mounted to avoid hydration issues
   if (!mounted) {
     return null
-  }
-
-  if (isLoading) {
-    return <SplashLoader onComplete={() => {
-      setIsLoading(false)
-      sessionStorage.setItem('hasSeenSplash', 'true')
-    }} videoLoaded={videoLoaded} />
   }
 
   if (!hasEntered) {

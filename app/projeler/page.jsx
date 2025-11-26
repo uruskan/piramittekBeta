@@ -274,6 +274,32 @@ export default function ProjectsPage() {
       team: "8 kişi",
       year: "2023",
     },
+    {
+      id: 7,
+      title: {
+        tr: "Ulusoy Gıda - Taze Balık E-Ticaret",
+        en: "Ulusoy Gıda - Fresh Fish E-Commerce",
+        de: "Ulusoy Gıda - Frischfisch E-Commerce",
+      },
+      category: "web",
+      icon: Code,
+      color: "#06B6D4",
+      image: "/modern-ecommerce-dashboard.png",
+      description: {
+        tr: "Ulusoy Gıda için modern taze balık ve deniz ürünleri e-ticaret platformu. Gerçek zamanlı stok yönetimi ve taze ürün garantisi.",
+        en: "Modern fresh fish and seafood e-commerce platform for Ulusoy Gıda. Real-time inventory management and fresh product guarantee.",
+        de: "Moderne Frischfisch- und Meeresfrüchte-E-Commerce-Plattform für Ulusoy Gıda. Echtzeit-Bestandsverwaltung und Frischegarantie.",
+      },
+      technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "AWS"],
+      features: {
+        tr: ["Taze Ürün Yönetimi", "Soğuk Zincir Takibi", "Online Sipariş", "Teslimat Takibi"],
+        en: ["Fresh Product Management", "Cold Chain Tracking", "Online Ordering", "Delivery Tracking"],
+        de: ["Frischproduktverwaltung", "Kühlkettenüberwachung", "Online-Bestellung", "Lieferverfolgung"],
+      },
+      duration: "4 ay",
+      team: "5 kişi",
+      year: "2024",
+    },
   ]
 
   const categories = [
