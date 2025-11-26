@@ -18,11 +18,7 @@ import TrustedBrands from "@/components/trusted-brands"
 
 export default function HomePage() {
   const { language, setLanguage } = useLanguage()
-  const [hasEntered, setHasEntered] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const canvasRef = useRef(null)
-  const particlesRef = useRef([])
-  const mouseRef = useRef({ x: 0, y: 0, active: false })
   const pyramidParallax = useParallax({ speed: -0.05 })
   const titleParallax = useParallax({ speed: -0.02 })
   const [taglineIndex, setTaglineIndex] = useState(0)
@@ -31,103 +27,6 @@ export default function HomePage() {
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas || hasEntered) {
-      return
-    }
-
-    const ctx = canvas.getContext("2d")
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    particlesRef.current = Array.from({ length: 50 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      size: Math.random() * 2 + 1,
-      opacity: Math.random() * 0.5 + 0.2,
-      color: ["#3b82f6", "#8b5cf6", "#06b6d4"][Math.floor(Math.random() * 3)],
-    }))
-
-    let animationId
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      if (mouseRef.current.active) {
-        const r = 200
-        const g = ctx.createRadialGradient(mouseRef.current.x, mouseRef.current.y, 0, mouseRef.current.x, mouseRef.current.y, r)
-        g.addColorStop(0, "rgba(6,182,212,0.22)")
-        g.addColorStop(0.5, "rgba(139,92,246,0.14)")
-        g.addColorStop(1, "rgba(0,0,0,0)")
-        ctx.fillStyle = g
-        ctx.beginPath()
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, r, 0, Math.PI * 2)
-        ctx.fill()
-      }
-
-      particlesRef.current.forEach((particle) => {
-        if (mouseRef.current.active) {
-          const dx = mouseRef.current.x - particle.x
-          const dy = mouseRef.current.y - particle.y
-          const dist2 = dx * dx + dy * dy
-          const R2 = 220 * 220
-          if (dist2 < R2) {
-            const f = 0.0006
-            particle.vx += dx * f
-            particle.vy += dy * f
-          }
-        }
-        particle.vx *= 0.995
-        particle.vy *= 0.995
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0) particle.x = canvas.width
-        if (particle.x > canvas.width) particle.x = 0
-        if (particle.y < 0) particle.y = canvas.height
-        if (particle.y > canvas.height) particle.y = 0
-
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle =
-          particle.color +
-          Math.floor(particle.opacity * 255)
-            .toString(16)
-            .padStart(2, "0")
-        ctx.fill()
-      })
-
-      animationId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    const handleMove = (e) => {
-      mouseRef.current.x = e.clientX
-      mouseRef.current.y = e.clientY
-      mouseRef.current.active = true
-    }
-    const handleLeave = () => {
-      mouseRef.current.active = false
-    }
-
-    window.addEventListener("resize", handleResize)
-    window.addEventListener("mousemove", handleMove)
-    window.addEventListener("mouseleave", handleLeave)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-      window.removeEventListener("mousemove", handleMove)
-      window.removeEventListener("mouseleave", handleLeave)
-      if (animationId) cancelAnimationFrame(animationId)
-    }
-  }, [hasEntered])
 
   const services = [
     {
@@ -408,65 +307,6 @@ export default function HomePage() {
   // Don't render anything until mounted to avoid hydration issues
   if (!mounted) {
     return null
-  }
-
-  if (!hasEntered) {
-    return (
-      <div className="fixed inset-0 bg-black overflow-hidden z-[60]">
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-auto z-10 opacity-40 md:opacity-60" />
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/placeholder.jpg"
-          preload="metadata"
-          disablePictureInPicture
-          style={{ objectFit: 'cover' }}
-        >
-          <source src="/video.mp4?v=20250826" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40 z-20" />
-
-
-        {/* Language buttons - mobile optimized positioning */}
-        <div className="absolute top-4 right-4 z-50 flex gap-1.5 md:gap-2">
-          {["tr", "en", "de"].map((lang) => (
-            <button
-              key={lang}
-              onClick={() => setLanguage(lang)}
-              className={`text-xs font-bold transition-all px-2.5 py-2.5 md:px-3 md:py-2 border backdrop-blur-sm cursor-pointer select-none min-h-[40px] min-w-[40px] flex items-center justify-center ${
-                language === lang
-                  ? "text-cyan-400 border-cyan-400 bg-cyan-400/10"
-                  : "text-white/70 hover:text-white border-white/30 hover:border-white/50"
-              }`}
-            >
-              {lang.toUpperCase()}
-            </button>
-          ))}
-        </div>
-
-        <div className="absolute inset-0 flex items-center justify-center z-30 p-4">
-          <div className="text-center px-4 max-w-4xl mx-auto w-full">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent px-2">
-              {t.welcome}
-            </h1>
-            <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 px-4">{t.subtitle}</p>
-            <Button
-              size="lg"
-              onClick={() => {
-                setHasEntered(true)
-                sessionStorage.setItem('hasSeenSplash', 'true')
-              }}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold transform hover:scale-105 transition-all duration-300 min-h-[44px] w-auto touch-manipulation"
-            >
-              {t.explore}
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (

@@ -1,97 +1,133 @@
 "use client"
 
 import { useLanguage } from "@/components/language-context"
-import Image from "next/image"
+import Link from "next/link"
 
 export default function TrustedBrands() {
   const { language } = useLanguage()
-  
+
   const translations = {
     tr: {
       title: "Bize Güvenen Markalar",
-      subtitle: "Güvenilir teknoloji ortağınız"
+      subtitle: "Dünya çapında lider şirketler ve kurumlar bize güveniyor"
     },
     en: {
       title: "Brands That Trust Us",
-      subtitle: "Your trusted technology partner"
+      subtitle: "Leading companies and institutions worldwide trust us"
     },
     de: {
       title: "Marken, die uns vertrauen",
-      subtitle: "Ihr vertrauenswürdiger Technologiepartner"
+      subtitle: "Weltweit führende Unternehmen und Institutionen vertrauen uns"
     }
   }
-  
+
+  const brands = [
+    {
+      name: "Ulusoy Gıda",
+      subtitle: "Taze Balık",
+      url: "https://ulusoybalikgida.com",
+      color: "cyan"
+    },
+    {
+      name: "Baylaz",
+      subtitle: "Holding",
+      url: "#",
+      color: "purple"
+    },
+    {
+      name: "T.C. Tarım ve Orman",
+      subtitle: "Bakanlığı",
+      url: "#",
+      color: "green"
+    }
+  ]
+
   const t = translations[language]
-  
+
   return (
-    <section className="py-16 sm:py-20 relative bg-black/50">
+    <section className="py-20 sm:py-28 relative bg-gradient-to-b from-black via-gray-900/50 to-black">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
             {t.title}
           </h2>
-          <p className="text-white/60 text-sm">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
             {t.subtitle}
           </p>
         </div>
-        
-        {/* Simple logo grid */}
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 items-center">
-            
-            {/* Ulusoy Gıda Logo */}
-            <div className="flex items-center justify-center p-6 sm:p-8">
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <svg width="150" height="60" viewBox="0 0 150 60" className="w-full h-auto max-w-[120px] sm:max-w-[150px]">
-                  <text x="50%" y="35%" textAnchor="middle" dominantBaseline="middle" className="fill-white text-lg font-bold">
-                    ULUSOY
-                  </text>
-                  <text x="50%" y="65%" textAnchor="middle" dominantBaseline="middle" className="fill-cyan-400 text-xs">
-                    GIDA BALIK
-                  </text>
-                </svg>
-              </div>
-            </div>
 
-            {/* Baylaz Holding Logo */}
-            <div className="flex items-center justify-center p-6 sm:p-8">
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <svg width="150" height="60" viewBox="0 0 150 60" className="w-full h-auto max-w-[120px] sm:max-w-[150px]">
-                  <text x="50%" y="35%" textAnchor="middle" dominantBaseline="middle" className="fill-white text-lg font-bold">
-                    BAYLAZ
-                  </text>
-                  <text x="50%" y="65%" textAnchor="middle" dominantBaseline="middle" className="fill-purple-400 text-xs">
-                    HOLDING
-                  </text>
-                </svg>
-              </div>
-            </div>
+        {/* Professional logo grid with cards */}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
-            {/* T.C. Tarım ve Orman Bakanlığı Logo */}
-            <div className="flex items-center justify-center p-6 sm:p-8">
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <svg width="150" height="80" viewBox="0 0 150 80" className="w-full h-auto max-w-[120px] sm:max-w-[150px]">
-                  {/* Simple emblem */}
-                  <circle cx="75" cy="25" r="12" className="fill-none stroke-green-500 stroke-1" />
-                  <path d="M75 18 L78 23 L83 23 L78.5 27 L80.5 32 L75 28 L69.5 32 L71.5 27 L67 23 L72 23 Z" 
-                    className="fill-green-500" />
-                  {/* Text */}
-                  <text x="50%" y="55" textAnchor="middle" className="fill-white text-[10px] font-bold">
-                    T.C. TARIM VE ORMAN
-                  </text>
-                  <text x="50%" y="68" textAnchor="middle" className="fill-green-400 text-[9px]">
-                    BAKANLIĞI
-                  </text>
-                </svg>
-              </div>
-            </div>
+            {brands.map((brand, index) => (
+              <Link
+                key={index}
+                href={brand.url}
+                target={brand.url.startsWith('http') ? "_blank" : undefined}
+                rel={brand.url.startsWith('http') ? "noopener noreferrer" : undefined}
+                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 rounded-2xl p-8 sm:p-10 transition-all duration-300 hover:scale-105 hover:bg-white/10 cursor-pointer"
+              >
+                {/* Glow effect on hover */}
+                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  brand.color === 'cyan' ? 'bg-cyan-500/5' :
+                  brand.color === 'purple' ? 'bg-purple-500/5' :
+                  'bg-green-500/5'
+                }`} />
+
+                <div className="relative z-10 text-center">
+                  <div className="mb-2">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white group-hover:text-white transition-colors">
+                      {brand.name}
+                    </h3>
+                    <p className={`text-sm sm:text-base font-medium mt-1 ${
+                      brand.color === 'cyan' ? 'text-cyan-400' :
+                      brand.color === 'purple' ? 'text-purple-400' :
+                      'text-green-400'
+                    }`}>
+                      {brand.subtitle}
+                    </p>
+                  </div>
+
+                  {/* Decorative element */}
+                  <div className="mt-6 flex justify-center">
+                    <div className={`h-1 w-16 rounded-full ${
+                      brand.color === 'cyan' ? 'bg-cyan-400' :
+                      brand.color === 'purple' ? 'bg-purple-400' :
+                      'bg-green-400'
+                    } group-hover:w-24 transition-all duration-300`} />
+                  </div>
+                </div>
+              </Link>
+            ))}
 
           </div>
         </div>
-        
-        {/* Optional: Simple divider line */}
-        <div className="mt-12 max-w-2xl mx-auto">
-          <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+        {/* Stats or additional info */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-8 px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full">
+            <div>
+              <div className="text-3xl font-bold text-cyan-400">10+</div>
+              <div className="text-sm text-gray-400 mt-1">
+                {language === 'tr' ? 'Mutlu Müşteri' : language === 'en' ? 'Happy Clients' : 'Zufriedene Kunden'}
+              </div>
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div>
+              <div className="text-3xl font-bold text-purple-400">50+</div>
+              <div className="text-sm text-gray-400 mt-1">
+                {language === 'tr' ? 'Tamamlanan Proje' : language === 'en' ? 'Completed Projects' : 'Abgeschlossene Projekte'}
+              </div>
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div>
+              <div className="text-3xl font-bold text-green-400">5+</div>
+              <div className="text-sm text-gray-400 mt-1">
+                {language === 'tr' ? 'Yıllık Deneyim' : language === 'en' ? 'Years Experience' : 'Jahre Erfahrung'}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
